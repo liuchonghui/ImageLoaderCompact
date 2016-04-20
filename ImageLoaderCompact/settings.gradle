@@ -1,2 +1,3 @@
 include ':Overlay:Overlay'
 include ':ImageLoaderCompactWithGlide:ImageLoaderCompactWithGlide'
+include ':ImageLoaderCompactWithFresco:ImageLoaderCompactWithFresco'
