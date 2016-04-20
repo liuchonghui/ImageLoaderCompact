@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="debug_log_key">debug_log</string>
+    <bool name="debug_log_default">true</bool>
+    
+    <string name="application_name"></string>
+    <string name="page_reconnection"></string>
+    <string name="page_debug">com.android.overlay.BugReportPage</string>
+    <string name="default_sound">com.android.overlay.DEFAULT_SOUND</string>
+
+    <string-array name="managers">
+        <item>com.android.overlay.manager.ConnectionManager</item>
+        <item>com.android.overlay.manager.DatabaseManager</item>
+        <item>com.android.overlay.manager.NetworkManager</item>
+        <item>com.android.overlay.manager.NotificationManager</item>
+        <item>com.android.overlay.manager.SettingsManager</item>
+    </string-array>
+    <string-array name="tables">
+        <item>com.android.overlay.table.NotificationTable</item>
+    </string-array>
+    
+    <string name="events_persistent_key">events_persistent</string>
+    <bool name="events_persistent_default">true</bool>
+
+    <string name="events_sound_key">events_sound_uri</string>
+    <string name="events_sound_default">@string/default_sound</string>
+    
+    <string name="events_vibro_key">events_vibro</string>
+    <bool name="events_vibro_default">true</bool>
+
+    <string name="events_ignore_system_vibro_key">events_ignore_system_vibro</string>
+    <bool name="events_ignore_system_vibro_default">false</bool>
+
+    <string name="events_lightning_key">events_lightning</string>
+    <bool name="events_lightning_default">true</bool>
+
+</resources>
