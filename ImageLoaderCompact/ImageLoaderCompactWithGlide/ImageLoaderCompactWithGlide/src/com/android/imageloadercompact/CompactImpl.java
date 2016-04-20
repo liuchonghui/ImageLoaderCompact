@@ -5,6 +5,10 @@ import android.graphics.Bitmap;
 
 public interface CompactImpl {
 
+    void onConnectionChanged(Context ctx, ConnectionType type);
+
+    void onConnectionClosed(Context ctx);
+
     void onStart(Context ctx);
 
     void onLoad(Context ctx);

@@ -59,5 +59,13 @@ public class ImageLoaderCompact implements CompactImpl {
 
     }
 
+    @Override
+    public void onConnectionChanged(Context ctx, ConnectionType type) {
 
+    }
+
+    @Override
+    public void onConnectionClosed(Context ctx) {
+
+    }
 }
