@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import tool.imageloadercompact.activity.CustomWaitDialog;
-import tool.imageloadercompact.android.R;
+import tool.imageloadercompact.app.R;
 
 /**
  * @author liu_chonghui
