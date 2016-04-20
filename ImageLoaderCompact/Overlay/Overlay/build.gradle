@@ -45,9 +45,9 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
 
-def siteUrl = 'https://github.com/sinagame/Overlay'
-def gitUrl = 'https://github.com/sinagame/Overlay.git'
-group = "com.sinagame"
+def siteUrl = 'https://github.com/liuchonghui/ImageLoaderCompact'
+def gitUrl = 'https://github.com/liuchonghui/ImageLoaderCompact.git'
+group = "com.android"
 
 // 根节点添加
 install {
@@ -65,9 +65,9 @@ install {
                 }
                 developers {
                     developer {
-                        id 'sinagame'
-                        name 'sinagame'
-                        email '4git@sina.com'
+                        id 'liuchonghui'
+                        name 'liuchonghui'
+                        email 'liu_chonghui@126.com'
                     }
                 }
                 scm {
