@@ -47,7 +47,7 @@ dependencies {
 
 def siteUrl = 'https://github.com/liuchonghui/ImageLoaderCompact'
 def gitUrl = 'https://github.com/liuchonghui/ImageLoaderCompact.git'
-group = "com.android"
+group = "tools.android"
 
 // 根节点添加
 install {
