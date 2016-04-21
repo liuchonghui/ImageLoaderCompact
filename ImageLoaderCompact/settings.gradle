@@ -1,4 +1,4 @@
-include ':Overlay:Overlay'
-include ':ImageLoaderCompactWithGlide:ImageLoaderCompactWithGlide'
-include ':ImageLoaderCompactWithFresco:ImageLoaderCompactWithFresco'
+//include ':Overlay:Overlay'
+//include ':ImageLoaderCompactWithGlide:ImageLoaderCompactWithGlide'
+//include ':ImageLoaderCompactWithFresco:ImageLoaderCompactWithFresco'
 include ':samples:app'
