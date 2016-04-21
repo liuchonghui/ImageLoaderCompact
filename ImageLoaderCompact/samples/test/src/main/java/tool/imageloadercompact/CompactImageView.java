@@ -6,7 +6,8 @@ import android.net.Uri;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
+import com.facebook.drawee.generic.GenericDraweeHierarchy;
+import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import tool.imageloadercompact.test.R;
@@ -32,9 +33,6 @@ public class CompactImageView extends SimpleDraweeView {
     int roundedCornerRadius = 0;
 
     private void init(Context context, AttributeSet attrs) {
-//        if (ImageLoaderCompact.useFresco) {
-//            return;
-//        }
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.GenericDraweeView);
         try {
             if (a.hasValue(R.styleable.GenericDraweeView_placeholderImage)) {
@@ -79,6 +77,7 @@ public class CompactImageView extends SimpleDraweeView {
         if (ImageLoaderCompact.useFresco) {
             super.setImageURI(uri);
         } else {
+            // 不行，Glide必须用当前Activity或Fragment的Context
 //            if (roundAsCircle) {
 //                Glide.with(getContext()).load(uri.getPath())
 //                        .asBitmap().centerCrop().into(new BitmapImageViewTarget(getImageView()) {
@@ -92,10 +91,47 @@ public class CompactImageView extends SimpleDraweeView {
 //                });
 //
 //            } else {
-                Glide.with(getContext())
-                        .load(uri.getEncodedPath())
-                        .placeholder(placeholderId).into(getImageView());
+//                Glide.with(getContext())
+//                        .load(uri.getEncodedPath())
+//                        .placeholder(placeholderId).into(getImageView());
 //            }
         }
+    }
+
+    public void setPlaceholderId(int placeholderId) {
+        this.placeholderId = placeholderId;
+        if (ImageLoaderCompact.useFresco) {
+            GenericDraweeHierarchy hierarchy = getHierarchy();
+            hierarchy.setPlaceholderImage(this.placeholderId);
+        }
+        invalidate();
+    }
+
+    public void roundAsCircle(boolean roundAsCircle) {
+        this.roundAsCircle = roundAsCircle;
+        if (ImageLoaderCompact.useFresco) {
+            GenericDraweeHierarchy hierarchy = getHierarchy();
+            RoundingParams rp = hierarchy.getRoundingParams();
+            if (null == rp) {
+                rp = new RoundingParams();
+            }
+            rp.setRoundAsCircle(this.roundAsCircle);
+            hierarchy.setRoundingParams(rp);
+        }
+        invalidate();
+    }
+
+    public void roundedCornerRadius(int roundedCornerRadius) {
+        this.roundedCornerRadius = roundedCornerRadius;
+        if (ImageLoaderCompact.useFresco) {
+            GenericDraweeHierarchy hierarchy = getHierarchy();
+            RoundingParams rp = hierarchy.getRoundingParams();
+            if (null == rp) {
+                rp = new RoundingParams();
+            }
+            rp.setCornersRadius(this.roundedCornerRadius);
+            hierarchy.setRoundingParams(rp);
+        }
+        invalidate();
     }
 }
