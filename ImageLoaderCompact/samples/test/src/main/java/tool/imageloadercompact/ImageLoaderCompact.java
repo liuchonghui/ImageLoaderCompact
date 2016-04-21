@@ -2,9 +2,6 @@ package tool.imageloadercompact;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.widget.ImageView;
-
-import com.bumptech.glide.Glide;
 
 import tool.imageloadercompact.fresco.FrescoManager;
 import tool.imageloadercompact.glide.GlideManager;
@@ -41,6 +38,11 @@ public class ImageLoaderCompact implements CompactImpl {
             }
         }
         return instance;
+    }
+
+    public int dp2px(Context ctx, float dipValue) {
+        final float scale = ctx.getResources().getDisplayMetrics().density;
+        return (int) (dipValue * scale + 0.5f);
     }
 
     boolean initialize = false;

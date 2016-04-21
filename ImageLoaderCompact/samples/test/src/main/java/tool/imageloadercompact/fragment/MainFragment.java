@@ -70,8 +70,8 @@ public class MainFragment extends BaseFragment {
     protected void intView(View view) {
         mUpdateDialog = new CustomWaitDialog(getActivity());
         mUpdateDialog.setCanceledOnTouchOutside(false);
-        int dp65 = dp2px(getActivity(), 65);
-        int dp6 = dp2px(getActivity(), 6);
+        int dp65 = ImageLoaderCompact.getInstance().dp2px(getActivity(), 65);
+        int dp6 = ImageLoaderCompact.getInstance().dp2px(getActivity(), 6);
 
         String url = "http://n.sinaimg.cn/transform/20150526/splR-avxeafs8127570.jpg";
         // 静态
@@ -139,11 +139,6 @@ public class MainFragment extends BaseFragment {
         CompactImageView image3 = (CompactImageView) view.findViewById(R.id.news_logo);
         ImageLoaderCompact.getInstance().displayImage(
                 getActivity(), url, image3);
-    }
-
-    public int dp2px(Context context, float dipValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dipValue * scale + 0.5f);
     }
 
     protected void flushPage() {
