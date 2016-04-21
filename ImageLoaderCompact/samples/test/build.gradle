@@ -110,7 +110,7 @@ android {
 
 android.applicationVariants.all { variant ->
     variant.each {
-        buildConfigField "boolean", "useFresco", "true"
+        buildConfigField "boolean", "useFresco", "false"
     }
 }
 //apply plugin: 'com.android.application'

@@ -2,12 +2,17 @@ package tool.imageloadercompact.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.net.URI;
+
+import tool.imageloadercompact.CompactImageView;
+import tool.imageloadercompact.ImageLoaderCompact;
 import tool.imageloadercompact.activity.CustomWaitDialog;
 import tool.imageloadercompact.test.R;
 
@@ -62,6 +67,13 @@ public class MainFragment extends BaseFragment {
     protected void intView(View view) {
         mUpdateDialog = new CustomWaitDialog(getActivity());
         mUpdateDialog.setCanceledOnTouchOutside(false);
+
+        String url = "http://n.sinaimg.cn/transform/20150526/splR-avxeafs8127570.jpg";
+        CompactImageView imageView = (CompactImageView) view.findViewById(R.id.anchorlist_logo);
+        ImageLoaderCompact.getInstance().displayImage(getActivity(), url, imageView);
+//        imageView.setImageURI(Uri.parse(url));
+        CompactImageView imageview = (CompactImageView) view.findViewById(R.id.newslist_logo);
+        ImageLoaderCompact.getInstance().displayImage(getActivity(), url, imageview);
 
     }
 

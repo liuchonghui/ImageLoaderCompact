@@ -4,7 +4,10 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+
 import tool.imageloadercompact.fresco.FrescoManager;
+import tool.imageloadercompact.glide.GlideManager;
 import tool.imageloadercompact.test.BuildConfig;
 
 
@@ -44,9 +47,9 @@ public class ImageLoaderCompact implements CompactImpl {
 
     @Override
     public void onStart() {
-        if (useFresco) {
+//        if (useFresco) {
             FrescoManager.getInstance().onStart();
-        }
+//        }
     }
 
     @Override
@@ -65,10 +68,10 @@ public class ImageLoaderCompact implements CompactImpl {
 
     @Override
     public boolean isInitialized() {
-        if (useFresco) {
+//        if (useFresco) {
             return FrescoManager.getInstance().isInitialized();
-        }
-        return initialize;
+//        }
+//        return initialize;
     }
 
     @Override
@@ -79,9 +82,11 @@ public class ImageLoaderCompact implements CompactImpl {
     }
 
     @Override
-    public void displayImage(String url, ImageView imageView) {
+    public void displayImage(Context ctx, String url, CompactImageView imageView) {
         if (useFresco) {
-            FrescoManager.getInstance().displayImage(url, imageView);
+            FrescoManager.getInstance().displayImage(ctx, url, imageView);
+        } else {
+            GlideManager.getInstance().displayImage(ctx, url, imageView);
         }
     }
 

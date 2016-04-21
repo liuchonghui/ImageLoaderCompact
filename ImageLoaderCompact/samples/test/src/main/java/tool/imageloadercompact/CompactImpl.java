@@ -20,7 +20,7 @@ public interface CompactImpl {
 
     void clearDiskCaches();
 
-    void displayImage(String url, ImageView imageView);
+    void displayImage(Context ctx, String url, CompactImageView imageView);
 
     Bitmap fetchBitmapByUrl(String url);
 

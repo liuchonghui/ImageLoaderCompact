@@ -25,6 +25,7 @@ import com.facebook.imagepipeline.image.CloseableImage;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
+import tool.imageloadercompact.CompactImageView;
 import tool.imageloadercompact.ConnectionType;
 import tool.imageloadercompact.OnFetchBitmapListener;
 import tool.imageloadercompact.StorageUtils;
@@ -283,8 +284,8 @@ public class FrescoManager {
         return configBuilder.build();
     }
 
-    public void displayImage(String url, ImageView imageView) {
-        if (url != null && url.length() > 0) {
+    public void displayImage(Context ctx, String url, CompactImageView imageView) {
+        if (imageView != null && url != null && url.length() > 0) {
             imageView.setImageURI(Uri.parse(url));
         }
     }

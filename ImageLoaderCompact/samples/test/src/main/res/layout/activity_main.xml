@@ -9,8 +9,25 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="tool.whosdomainname.android.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+    <tool.imageloadercompact.CompactImageView
+        xmlns:compact="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/anchorlist_logo"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="centerCrop"
+        compact:placeholderImage="@mipmap/ic_launcher"
+        compact:roundAsCircle="true" />
+
+    <tool.imageloadercompact.CompactImageView
+        xmlns:compact="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/newslist_logo"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="centerCrop"
+        compact:placeholderImage="@mipmap/ic_launcher"
+        compact:roundedCornerRadius="6dp" />
 </RelativeLayout>
