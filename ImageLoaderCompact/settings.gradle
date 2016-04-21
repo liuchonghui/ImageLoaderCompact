@@ -2,3 +2,4 @@
 //include ':ImageLoaderCompactWithGlide:ImageLoaderCompactWithGlide'
 //include ':ImageLoaderCompactWithFresco:ImageLoaderCompactWithFresco'
 include ':samples:app'
+include ':samples:test'

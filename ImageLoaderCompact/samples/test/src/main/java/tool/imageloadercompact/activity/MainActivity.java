@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 
-import tool.imageloadercompact.app.R;
+import tool.imageloadercompact.test.R;
 import tool.imageloadercompact.fragment.MainFragment;
 
 public class MainActivity extends BaseFragmentActivity {

@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import tool.imageloadercompact.app.R;
+import tool.imageloadercompact.test.R;
 
 /**
  * 自定义加载 请求等等待dialog
