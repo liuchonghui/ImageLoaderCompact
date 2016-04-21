@@ -71,7 +71,10 @@ public class MainFragment extends BaseFragment {
         String url = "http://n.sinaimg.cn/transform/20150526/splR-avxeafs8127570.jpg";
         CompactImageView imageView = (CompactImageView) view.findViewById(R.id.anchorlist_logo);
         ImageLoaderCompact.getInstance().displayImage(getActivity(), url, imageView);
-//        imageView.setImageURI(Uri.parse(url));
+
+        CompactImageView imagev = (CompactImageView) view.findViewById(R.id.giftlist_logo);
+        ImageLoaderCompact.getInstance().displayImage(getActivity(), url, imagev);
+
         CompactImageView imageview = (CompactImageView) view.findViewById(R.id.newslist_logo);
         ImageLoaderCompact.getInstance().displayImage(getActivity(), url, imageview);
 

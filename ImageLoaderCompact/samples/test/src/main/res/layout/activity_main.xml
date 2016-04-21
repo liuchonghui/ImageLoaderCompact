@@ -22,6 +22,16 @@
 
     <tool.imageloadercompact.CompactImageView
         xmlns:compact="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/giftlist_logo"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:scaleType="centerCrop"
+        compact:placeholderImage="@mipmap/ic_launcher" />
+
+    <tool.imageloadercompact.CompactImageView
+        xmlns:compact="http://schemas.android.com/apk/res-auto"
         android:id="@+id/newslist_logo"
         android:layout_width="65dp"
         android:layout_height="65dp"
