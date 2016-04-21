@@ -56,4 +56,44 @@
         android:layout_below="@+id/top_layout">
 
     </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/alian_alian_top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:layout_below="@+id/alian_top_layout">
+
+        <tool.imageloadercompact.CompactImageView
+            xmlns:compact="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/anchor_logo"
+            android:layout_width="85dp"
+            android:layout_height="65dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:scaleType="fitXY"
+            compact:placeholderImage="@mipmap/ic_launcher"
+            compact:roundAsCircle="true" />
+
+        <tool.imageloadercompact.CompactImageView
+            xmlns:compact="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/gift_logo"
+            android:layout_width="85dp"
+            android:layout_height="65dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:scaleType="fitXY"
+            compact:placeholderImage="@mipmap/ic_launcher" />
+
+        <tool.imageloadercompact.CompactImageView
+            xmlns:compact="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/news_logo"
+            android:layout_width="85dp"
+            android:layout_height="65dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:scaleType="fitXY"
+            compact:placeholderImage="@mipmap/ic_launcher"
+            compact:roundedCornerRadius="6dp" />
+    </RelativeLayout>
 </RelativeLayout>

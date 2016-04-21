@@ -71,6 +71,7 @@ public class MainFragment extends BaseFragment {
         mUpdateDialog = new CustomWaitDialog(getActivity());
         mUpdateDialog.setCanceledOnTouchOutside(false);
         int dp65 = dp2px(getActivity(), 65);
+        int dp6 = dp2px(getActivity(), 6);
 
         String url = "http://n.sinaimg.cn/transform/20150526/splR-avxeafs8127570.jpg";
         // 静态
@@ -118,7 +119,7 @@ public class MainFragment extends BaseFragment {
         imageview1.roundAsCircle(true);
         imageview2.setPlaceholderId(R.mipmap.ic_launcher);
         imageview3.setPlaceholderId(R.mipmap.ic_launcher);
-        imageview3.roundedCornerRadius(dp2px(getActivity(), 6));
+        imageview3.roundedCornerRadius(dp6);
 
         ImageLoaderCompact.getInstance().displayImage(
                 getActivity(), url, imageview1);
@@ -126,6 +127,18 @@ public class MainFragment extends BaseFragment {
                 getActivity(), url, imageview2);
         ImageLoaderCompact.getInstance().displayImage(
                 getActivity(), url, imageview3);
+        // fitXY
+        CompactImageView image1 = (CompactImageView) view.findViewById(R.id.anchor_logo);
+        ImageLoaderCompact.getInstance().displayImage(
+                getActivity(), url, image1);
+
+        CompactImageView image2 = (CompactImageView) view.findViewById(R.id.gift_logo);
+        ImageLoaderCompact.getInstance().displayImage(
+                getActivity(), url, image2);
+
+        CompactImageView image3 = (CompactImageView) view.findViewById(R.id.news_logo);
+        ImageLoaderCompact.getInstance().displayImage(
+                getActivity(), url, image3);
     }
 
     public int dp2px(Context context, float dipValue) {

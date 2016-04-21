@@ -7,6 +7,7 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 
 import com.android.overlay.utils.LogUtils;
 import com.bumptech.glide.BitmapRequestBuilder;
+import com.bumptech.glide.BitmapTypeRequest;
 import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
@@ -143,7 +144,8 @@ public class GlideManager {
             }
 
             DrawableTypeRequest<String> request = Glide.with(ctx).load(url);
-            BitmapRequestBuilder builder = request.asBitmap().centerCrop();
+            BitmapTypeRequest btr = request.asBitmap();
+            BitmapRequestBuilder builder = btr.centerCrop();
             if (null == target) {
                 builder.placeholder(placeholderId).into(imageView);
             } else {
