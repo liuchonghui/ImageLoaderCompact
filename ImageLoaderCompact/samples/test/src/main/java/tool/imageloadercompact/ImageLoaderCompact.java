@@ -26,6 +26,7 @@ public class ImageLoaderCompact implements CompactImpl {
         if (BuildConfig.useFresco) {
             FrescoManager.getInstance();
         } else {
+            GlideManager.getInstance();
         }
     }
 
