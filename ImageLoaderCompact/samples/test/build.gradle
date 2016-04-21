@@ -8,20 +8,8 @@ dependencies {
     compile "com.android.support:support-v4:${SUPPORT_V4_VERSION}"
     compile "com.android.support:recyclerview-v7:${COMPILE_SUGGEST_SDK_VERSION}"
     compile 'com.android.support:multidex:1.0.1'
-    String useCompact = "${USE_COMPACT}"
-    if ("true".equals(useCompact)) {
-        String useCompactFresco = "${USE_COMPACT_FRESCO}"
-        if ("true".equals(useCompactFresco)) {
-
-        }
-        String useCompactGlide = "${USE_COMPACT_GLIDE}"
-        if ("true".equals(useCompactGlide)) {
-
-        }
-    } else {
-//        compile "com.facebook.fresco:fresco:${FRESCO_VERSION}"
-//        compile "com.github.bumptech.glide:glide:${GLIDE_VERSION}"
-    }
+    compile 'com.github.bumptech.glide:glide:3.5.2'
+    compile 'com.facebook.fresco:fresco:0.8.0+'
     compile "com.sinagame:WindowAttacher:${WINDOW_ATTACHER_VERSION}"
     compile "com.sinagame:Overlay:${OVERLAY_VERSION}"
 }
@@ -117,6 +105,12 @@ android {
         // Or, if you prefer, you can continue to check for errors in release builds,
         // but continue the build even when errors are found:
         abortOnError false
+    }
+}
+
+android.applicationVariants.all { variant ->
+    variant.each {
+        buildConfigField "boolean", "useFresco", "true"
     }
 }
 //apply plugin: 'com.android.application'
