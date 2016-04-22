@@ -172,21 +172,21 @@ public class MainFragment extends BaseFragment {
         });
         // 异步获取Bitmap
         final ImageView asyncImageView = (ImageView) view.findViewById(R.id.async_logo);
-//        ImageLoaderCompact.getInstance().asyncFetchBitmapByUrl(url,
-//                new OnFetchBitmapListener() {
-//
-//            @Override
-//            public void onFetchBitmapSuccess(String url, Bitmap bitmap) {
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-//                    asyncImageView.setBackground(new BitmapDrawable(bitmap));
-//                }
-//            }
-//
-//            @Override
-//            public void onFetchBitmapFailure(String url) {
-//
-//            }
-//        });
+        ImageLoaderCompact.getInstance().asyncFetchBitmapByUrl(url,
+                new OnFetchBitmapListener() {
+
+            @Override
+            public void onFetchBitmapSuccess(String url, Bitmap bitmap) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    asyncImageView.setBackground(new BitmapDrawable(bitmap));
+                }
+            }
+
+            @Override
+            public void onFetchBitmapFailure(String url) {
+
+            }
+        });
         // 使用PhotoView展示大图
         asyncImageView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -10,11 +10,11 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
     String useCompactFresco = "${USE_COMPACT_FRESCO}"
     if ("true".equals(useCompactFresco)) {
-        compile 'tools.android:ImageLoaderCompactWithFresco:1.0.3'
+        compile 'tools.android:ImageLoaderCompactWithFresco:1.0.4'
     }
     String useCompactGlide = "${USE_COMPACT_GLIDE}"
     if ("true".equals(useCompactGlide)) {
-        compile 'tools.android:ImageLoaderCompactWithGlide:1.0.3'
+        compile 'tools.android:ImageLoaderCompactWithGlide:1.0.4'
     }
     compile "com.sinagame:WindowAttacher:${WINDOW_ATTACHER_VERSION}"
     compile "tools.android:Overlay:${OVERLAY_VERSION}"
