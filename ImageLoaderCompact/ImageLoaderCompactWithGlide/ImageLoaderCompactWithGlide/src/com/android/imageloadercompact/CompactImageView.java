@@ -11,10 +11,12 @@ public class CompactImageView extends ImageView {
 
     public CompactImageView(Context context) {
         super(context);
+        init(context, null);
     }
 
     public CompactImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init(context, attrs);
     }
 
     public CompactImageView(Context context, AttributeSet attrs, int defStyleAttr) {
