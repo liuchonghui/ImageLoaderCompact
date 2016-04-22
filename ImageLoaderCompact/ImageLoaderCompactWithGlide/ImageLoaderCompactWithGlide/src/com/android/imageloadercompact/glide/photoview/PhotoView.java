@@ -23,7 +23,9 @@ import android.net.Uri;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-public class PhotoView extends ImageView implements IPhotoView {
+import com.android.imageloadercompact.CompactImageView;
+
+public class PhotoView extends CompactImageView implements IPhotoView {
 
 	private final PhotoViewAttacher mAttacher;
 

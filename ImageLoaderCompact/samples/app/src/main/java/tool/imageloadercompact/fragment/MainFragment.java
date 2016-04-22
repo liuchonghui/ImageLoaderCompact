@@ -2,12 +2,16 @@ package tool.imageloadercompact.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,11 +19,13 @@ import android.widget.Toast;
 import com.android.imageloadercompact.CompactImageView;
 import com.android.imageloadercompact.ImageLoaderCompact;
 import com.android.imageloadercompact.OnDiskCachesClearListener;
+import com.android.imageloadercompact.OnFetchBitmapListener;
 import com.android.imageloadercompact.Size;
 
 import java.math.BigDecimal;
 
 import tool.imageloadercompact.activity.CustomWaitDialog;
+import tool.imageloadercompact.activity.ImageBrowserActivity;
 import tool.imageloadercompact.app.R;
 
 /**
@@ -162,6 +168,31 @@ public class MainFragment extends BaseFragment {
                         Toast.makeText(getActivity(), "缓存已清空", Toast.LENGTH_LONG).show();
                     }
                 });
+            }
+        });
+        // 异步获取Bitmap
+        final ImageView asyncImageView = (ImageView) view.findViewById(R.id.async_logo);
+        ImageLoaderCompact.getInstance().asyncFetchBitmapByUrl(url,
+                new OnFetchBitmapListener() {
+
+            @Override
+            public void onFetchBitmapSuccess(String url, Bitmap bitmap) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    asyncImageView.setBackground(new BitmapDrawable(bitmap));
+                }
+            }
+
+            @Override
+            public void onFetchBitmapFailure(String url) {
+
+            }
+        });
+        // 使用PhotoView展示大图
+        asyncImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ImageBrowserActivity.class);
+                getActivity().startActivity(intent);
             }
         });
     }

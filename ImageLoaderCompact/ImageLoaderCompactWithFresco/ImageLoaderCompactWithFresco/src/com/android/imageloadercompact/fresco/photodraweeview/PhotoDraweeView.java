@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
+import com.android.imageloadercompact.CompactImageView;
 import com.android.imageloadercompact.fresco.FrescoManager;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeControllerBuilder;
 import com.facebook.drawee.controller.BaseControllerListener;
@@ -17,7 +18,7 @@ import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.image.ImageInfo;
 
-public class PhotoDraweeView extends SimpleDraweeView implements IAttacher {
+public class PhotoDraweeView extends CompactImageView implements IAttacher {
 
     private Attacher mAttacher;
 
