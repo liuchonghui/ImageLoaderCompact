@@ -11,7 +11,7 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.5.2'
     compile 'com.facebook.fresco:fresco:0.8.0+'
     compile "com.sinagame:WindowAttacher:${WINDOW_ATTACHER_VERSION}"
-    compile "com.sinagame:Overlay:${OVERLAY_VERSION}"
+    compile "tools.android:Overlay:${OVERLAY_VERSION}"
 }
 
 android {

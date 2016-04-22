@@ -72,32 +72,6 @@ public class CompactImageView extends SimpleDraweeView {
         return this.roundedCornerRadius;
     }
 
-    @Override
-    public void setImageURI(Uri uri) {
-        if (ImageLoaderCompact.useFresco) {
-            super.setImageURI(uri);
-        } else {
-            // 不行，Glide必须用当前Activity或Fragment的Context
-//            if (roundAsCircle) {
-//                Glide.with(getContext()).load(uri.getPath())
-//                        .asBitmap().centerCrop().into(new BitmapImageViewTarget(getImageView()) {
-//                    @Override
-//                    protected void setResource(Bitmap resource) {
-//                        RoundedBitmapDrawable circularBitmapDrawable =
-//                                RoundedBitmapDrawableFactory.create(getContext().getResources(), resource);
-//                        circularBitmapDrawable.setCircular(true);
-//                        getImageView().setImageDrawable(circularBitmapDrawable);
-//                    }
-//                });
-//
-//            } else {
-//                Glide.with(getContext())
-//                        .load(uri.getEncodedPath())
-//                        .placeholder(placeholderId).into(getImageView());
-//            }
-        }
-    }
-
     public void setPlaceholderId(int placeholderId) {
         this.placeholderId = placeholderId;
         if (ImageLoaderCompact.useFresco) {
@@ -134,4 +108,32 @@ public class CompactImageView extends SimpleDraweeView {
         }
         invalidate();
     }
+
+    @Override
+    public void setImageURI(Uri uri) {
+        if (ImageLoaderCompact.useFresco) {
+            super.setImageURI(uri);
+        } else {
+            // 不行，Glide必须用当前Activity或Fragment的Context
+//            if (roundAsCircle) {
+//                Glide.with(getContext()).load(uri.getPath())
+//                        .asBitmap().centerCrop().into(new BitmapImageViewTarget(getImageView()) {
+//                    @Override
+//                    protected void setResource(Bitmap resource) {
+//                        RoundedBitmapDrawable circularBitmapDrawable =
+//                                RoundedBitmapDrawableFactory.create(getContext().getResources(), resource);
+//                        circularBitmapDrawable.setCircular(true);
+//                        getImageView().setImageDrawable(circularBitmapDrawable);
+//                    }
+//                });
+//
+//            } else {
+//                Glide.with(getContext())
+//                        .load(uri.getEncodedPath())
+//                        .placeholder(placeholderId).into(getImageView());
+//            }
+        }
+    }
+
+
 }
