@@ -16,9 +16,10 @@ import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.image.ImageInfo;
 
+import tool.imageloadercompact.CompactImageView;
 import tool.imageloadercompact.fresco.FrescoManager;
 
-public class PhotoDraweeView extends SimpleDraweeView implements IAttacher {
+public class PhotoDraweeView extends CompactImageView implements IAttacher {
 
     private Attacher mAttacher;
 

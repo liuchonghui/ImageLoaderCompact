@@ -14,6 +14,7 @@ import com.bumptech.glide.BitmapRequestBuilder;
 import com.bumptech.glide.BitmapTypeRequest;
 import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -157,11 +158,11 @@ public class GlideManager implements CompactImpl {
 
     public void asyncFetchBitmapByUrl(final String url,
                                       final OnFetchBitmapListener l) {
-        SimpleTarget target = new SimpleTarget<Bitmap>() {
+        SimpleTarget target = new SimpleTarget<GlideBitmapDrawable>() {
             @Override
-            public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
+            public void onResourceReady(GlideBitmapDrawable bitmapDrawable, GlideAnimation glideAnimation) {
                 if (l != null) {
-                    l.onFetchBitmapSuccess(url, bitmap);
+                    l.onFetchBitmapSuccess(url, bitmapDrawable.getBitmap());
                 }
             }
 

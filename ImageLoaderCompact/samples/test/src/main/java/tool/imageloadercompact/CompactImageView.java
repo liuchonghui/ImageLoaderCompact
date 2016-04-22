@@ -14,8 +14,14 @@ import tool.imageloadercompact.test.R;
 
 public class CompactImageView extends SimpleDraweeView {
 
+    public CompactImageView(Context context, GenericDraweeHierarchy hierarchy) {
+        super(context, hierarchy);
+        init(context, null);
+    }
+
     public CompactImageView(Context context) {
         super(context);
+        init(context, null);
     }
 
     public CompactImageView(Context context, AttributeSet attrs) {

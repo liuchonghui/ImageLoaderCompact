@@ -135,4 +135,21 @@
             android:textSize="10sp"
             android:textColor="#666666"/>
     </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/middle_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:layout_below="@+id/alian_alian_alian_top_layout">
+        <ImageView
+            xmlns:compact="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/async_logo"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:scaleType="centerCrop"
+            android:background="@mipmap/ic_launcher" />
+    </RelativeLayout>
 </RelativeLayout>
