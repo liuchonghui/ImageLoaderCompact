@@ -1,5 +1,5 @@
 //include ':Overlay:Overlay'
-include ':ImageLoaderCompactWithGlide:ImageLoaderCompactWithGlide'
 include ':ImageLoaderCompactWithFresco:ImageLoaderCompactWithFresco'
+include ':ImageLoaderCompactWithGlide:ImageLoaderCompactWithGlide'
 include ':samples:app'
 //include ':samples:test'

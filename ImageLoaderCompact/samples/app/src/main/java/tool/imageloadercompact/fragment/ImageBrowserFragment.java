@@ -2,28 +2,14 @@ package tool.imageloadercompact.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.imageloadercompact.CompactImageView;
 import com.android.imageloadercompact.CompactPhotoView;
 import com.android.imageloadercompact.ImageLoaderCompact;
-import com.android.imageloadercompact.OnDiskCachesClearListener;
-import com.android.imageloadercompact.OnFetchBitmapListener;
-import com.android.imageloadercompact.Size;
-
-import java.math.BigDecimal;
 
 import tool.imageloadercompact.activity.CustomWaitDialog;
 import tool.imageloadercompact.app.R;
@@ -80,13 +66,11 @@ public class ImageBrowserFragment extends BaseFragment {
     protected void intView(View view) {
         mUpdateDialog = new CustomWaitDialog(getActivity());
         mUpdateDialog.setCanceledOnTouchOutside(false);
-        int dp65 = ImageLoaderCompact.getInstance().dp2px(getActivity(), 65);
-        int dp6 = ImageLoaderCompact.getInstance().dp2px(getActivity(), 6);
 
         String url = "http://n.sinaimg.cn/transform/20150526/splR-avxeafs8127570.jpg";
 
         photo = (CompactPhotoView) view.findViewById(R.id.images_detail_item_image);
-//        ImageLoaderCompact.getInstance().displayImage(getActivity(), url, photo);
+        ImageLoaderCompact.getInstance().displayImage(getActivity(), url, photo);
     }
 
     protected void flushPage() {
