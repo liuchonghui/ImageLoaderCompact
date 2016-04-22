@@ -8,22 +8,16 @@ dependencies {
     compile "com.android.support:support-v4:${SUPPORT_V4_VERSION}"
     compile "com.android.support:recyclerview-v7:${COMPILE_SUGGEST_SDK_VERSION}"
     compile 'com.android.support:multidex:1.0.1'
-    String useCompact = "${USE_COMPACT}"
-    if ("true".equals(useCompact)) {
-        String useCompactFresco = "${USE_COMPACT_FRESCO}"
-        if ("true".equals(useCompactFresco)) {
-
-        }
-        String useCompactGlide = "${USE_COMPACT_GLIDE}"
-        if ("true".equals(useCompactGlide)) {
-
-        }
-    } else {
-        compile "com.facebook.fresco:fresco:${FRESCO_VERSION}"
-        compile "com.github.bumptech.glide:glide:${GLIDE_VERSION}"
+    String useCompactFresco = "${USE_COMPACT_FRESCO}"
+    if ("true".equals(useCompactFresco)) {
+        compile 'tools.android:ImageLoaderCompactWithFresco:1.0.1'
+    }
+    String useCompactGlide = "${USE_COMPACT_GLIDE}"
+    if ("true".equals(useCompactGlide)) {
+        compile 'tools.android:ImageLoaderCompactWithGlide:1.0.1'
     }
     compile "com.sinagame:WindowAttacher:${WINDOW_ATTACHER_VERSION}"
-    compile "com.sinagame:Overlay:${OVERLAY_VERSION}"
+    compile "tools.android:Overlay:${OVERLAY_VERSION}"
 }
 
 android {

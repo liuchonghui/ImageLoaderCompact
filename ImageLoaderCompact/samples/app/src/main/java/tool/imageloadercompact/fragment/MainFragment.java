@@ -7,6 +7,17 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.imageloadercompact.CompactImageView;
+import com.android.imageloadercompact.ImageLoaderCompact;
+import com.android.imageloadercompact.OnDiskCachesClearListener;
+import com.android.imageloadercompact.Size;
+
+import java.math.BigDecimal;
 
 import tool.imageloadercompact.activity.CustomWaitDialog;
 import tool.imageloadercompact.app.R;
@@ -57,12 +68,102 @@ public class MainFragment extends BaseFragment {
     }
 
     CustomWaitDialog mUpdateDialog;
+    RelativeLayout alianTopLayout;
 
     @SuppressLint("InflateParams")
     protected void intView(View view) {
         mUpdateDialog = new CustomWaitDialog(getActivity());
         mUpdateDialog.setCanceledOnTouchOutside(false);
+        int dp65 = ImageLoaderCompact.getInstance().dp2px(getActivity(), 65);
+        int dp6 = ImageLoaderCompact.getInstance().dp2px(getActivity(), 6);
 
+        String url = "http://n.sinaimg.cn/transform/20150526/splR-avxeafs8127570.jpg";
+        // 静态
+        CompactImageView imageView1 = (CompactImageView) view.findViewById(R.id.anchorlist_logo);
+        ImageLoaderCompact.getInstance().displayImage(
+                getActivity(), url, imageView1);
+
+        CompactImageView imageView2 = (CompactImageView) view.findViewById(R.id.giftlist_logo);
+        ImageLoaderCompact.getInstance().displayImage(
+                getActivity(), url, imageView2);
+
+        CompactImageView imageView3 = (CompactImageView) view.findViewById(R.id.newslist_logo);
+        ImageLoaderCompact.getInstance().displayImage(
+                getActivity(), url, imageView3);
+        // 动态
+        alianTopLayout = (RelativeLayout) view.findViewById(R.id.alian_top_layout);
+        CompactImageView imageview1 = new CompactImageView(getActivity());
+        CompactImageView imageview2 = new CompactImageView(getActivity());
+        CompactImageView imageview3 = new CompactImageView(getActivity());
+        alianTopLayout.addView(imageview1);
+        alianTopLayout.addView(imageview2);
+        alianTopLayout.addView(imageview3);
+
+        ViewGroup.LayoutParams lp1 = imageview1.getLayoutParams();
+        lp1.width = dp65;
+        lp1.height = dp65;
+        imageview1.setLayoutParams(lp1);
+        ViewGroup.LayoutParams lp2 = imageview2.getLayoutParams();
+        lp2.width = dp65;
+        lp2.height = dp65;
+        imageview2.setLayoutParams(lp2);
+        ViewGroup.LayoutParams lp3 = imageview3.getLayoutParams();
+        lp3.width = dp65;
+        lp3.height = dp65;
+        imageview3.setLayoutParams(lp3);
+
+        ((RelativeLayout.LayoutParams) imageview1.getLayoutParams())
+                .addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        ((RelativeLayout.LayoutParams) imageview2.getLayoutParams())
+                .addRule(RelativeLayout.CENTER_HORIZONTAL);
+        ((RelativeLayout.LayoutParams) imageview3.getLayoutParams())
+                .addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+
+        imageview1.setPlaceholderId(R.mipmap.ic_launcher);
+        imageview1.roundAsCircle(true);
+        imageview2.setPlaceholderId(R.mipmap.ic_launcher);
+        imageview3.setPlaceholderId(R.mipmap.ic_launcher);
+        imageview3.roundedCornerRadius(dp6);
+
+        ImageLoaderCompact.getInstance().displayImage(
+                getActivity(), url, imageview1);
+        ImageLoaderCompact.getInstance().displayImage(
+                getActivity(), url, imageview2);
+        ImageLoaderCompact.getInstance().displayImage(
+                getActivity(), url, imageview3);
+        // fitXY
+        CompactImageView image1 = (CompactImageView) view.findViewById(R.id.anchor_logo);
+        ImageLoaderCompact.getInstance().displayImage(
+                getActivity(), url, image1);
+
+        CompactImageView image2 = (CompactImageView) view.findViewById(R.id.gift_logo);
+        ImageLoaderCompact.getInstance().displayImage(
+                getActivity(), url, image2);
+
+        CompactImageView image3 = (CompactImageView) view.findViewById(R.id.news_logo);
+        ImageLoaderCompact.getInstance().displayImage(
+                getActivity(), url, image3);
+
+        // CacheSize
+        TextView size = (TextView) view.findViewById(R.id.cache_size_text);
+        Size value = ImageLoaderCompact.getInstance().getCacheSize();
+        BigDecimal bd = new BigDecimal(String.valueOf(value.getMSize()));
+        bd = bd.setScale(1, BigDecimal.ROUND_DOWN);
+        size.setText(bd.toString());
+
+        Button btn = (Button) view.findViewById(R.id.clear_cache);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ImageLoaderCompact.getInstance().clearDiskCaches(
+                        new OnDiskCachesClearListener() {
+                    @Override
+                    public void onDiskCacheCleared() {
+                        Toast.makeText(getActivity(), "缓存已清空", Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
     }
 
     protected void flushPage() {

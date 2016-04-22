@@ -7,6 +7,7 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.util.Log;
 
+import com.android.imageloadercompact.ImageLoaderCompact;
 import com.android.overlay.RunningEnvironment;
 //import com.sina.engine.base.config.EngineConfig;
 //import com.sina.engine.base.manager.EngineManager;
@@ -42,7 +43,7 @@ public class MainApplication extends Application {
 //                .setDeviceId("355dbee81a5f1709d905a31c56b72ab15")
 //                .setJsonFetcherFactory(new OkHttpJsonFetcherFactory())
 //                .setPartner_id("10001"));
-
+        ImageLoaderCompact.getInstance().init(this);
 
         subSystem.run(this);
     }
