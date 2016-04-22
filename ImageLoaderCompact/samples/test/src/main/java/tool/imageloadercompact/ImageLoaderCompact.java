@@ -2,12 +2,6 @@ package tool.imageloadercompact;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.os.Handler;
-import android.os.Looper;
-
-import com.android.overlay.RunningEnvironment;
-
-import java.io.File;
 
 import tool.imageloadercompact.fresco.FrescoManager;
 import tool.imageloadercompact.glide.GlideManager;
@@ -88,24 +82,17 @@ public class ImageLoaderCompact implements CompactImpl {
         if (useFresco) {
             FrescoManager.getInstance().clearDiskCaches(l);
         } else {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    if (l != null) {
-                        l.onDiskCacheCleared();
-                    }
-                }
-            });
+            GlideManager.getInstance().clearDiskCaches(l);
         }
     }
 
     @Override
     public Size getCacheSize() {
         if (useFresco) {
-            return FrescoManager.getInstance().getCacheSize(
-                    RunningEnvironment.getInstance().getApplicationContext());
+            return FrescoManager.getInstance().getCacheSize();
+        } else {
+            return GlideManager.getInstance().getCacheSize();
         }
-        return new Size();
     }
 
     @Override
@@ -121,8 +108,9 @@ public class ImageLoaderCompact implements CompactImpl {
     public Bitmap fetchBitmapByUrl(String url) {
         if (useFresco) {
             return FrescoManager.getInstance().fetchBitmapByUrl(url);
+        } else {
+            return GlideManager.getInstance().fetchBitmapByUrl(url);
         }
-        return null;
     }
 
     @Override
@@ -130,6 +118,8 @@ public class ImageLoaderCompact implements CompactImpl {
                                       OnFetchBitmapListener l) {
         if (useFresco) {
             FrescoManager.getInstance().asyncFetchBitmapByUrl(url, l);
+        } else {
+            GlideManager.getInstance().asyncFetchBitmapByUrl(url, l);
         }
     }
 
@@ -137,6 +127,8 @@ public class ImageLoaderCompact implements CompactImpl {
     public void onConnectionChanged(ConnectionType type) {
         if (useFresco) {
             FrescoManager.getInstance().onConnectionChanged(type);
+        } else {
+            GlideManager.getInstance().onConnectionChanged(type);
         }
     }
 
@@ -144,6 +136,8 @@ public class ImageLoaderCompact implements CompactImpl {
     public void onConnectionClosed() {
         if (useFresco) {
             FrescoManager.getInstance().onConnectionClosed();
+        } else {
+            GlideManager.getInstance().onConnectionClosed();
         }
     }
 }

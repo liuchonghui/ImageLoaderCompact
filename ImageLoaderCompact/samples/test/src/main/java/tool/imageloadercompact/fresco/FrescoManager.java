@@ -30,6 +30,7 @@ import java.io.File;
 import java.math.BigDecimal;
 
 import tool.imageloadercompact.CompactImageView;
+import tool.imageloadercompact.CompactImpl;
 import tool.imageloadercompact.ConnectionType;
 import tool.imageloadercompact.OnDiskCachesClearListener;
 import tool.imageloadercompact.OnFetchBitmapListener;
@@ -37,7 +38,7 @@ import tool.imageloadercompact.Size;
 import tool.imageloadercompact.StorageUtils;
 import tool.imageloadercompact.Utils;
 
-public class FrescoManager {
+public class FrescoManager implements CompactImpl {
 
     protected static FrescoManager instance;
     protected boolean initialized = false;
@@ -47,7 +48,6 @@ public class FrescoManager {
 
     static {
         instance = new FrescoManager();
-//        RunningEnvironment.getInstance().addManager(instance);
     }
 
     public static FrescoManager getInstance() {
@@ -65,6 +65,9 @@ public class FrescoManager {
     }
 
     public void onLoad() {
+    }
+
+    public void onInitialize() {
     }
 
     public boolean isInitialized() {
@@ -108,7 +111,7 @@ public class FrescoManager {
                 e.printStackTrace();
             }
 
-            Size size = getCacheSize(RunningEnvironment.getInstance().getApplicationContext());
+            Size size = getCacheSize();
             BigDecimal bd = new BigDecimal(String.valueOf(size.getMSize()));
             bd = bd.setScale(1, BigDecimal.ROUND_DOWN);
             if (0 != bd.doubleValue()) {
@@ -345,9 +348,10 @@ public class FrescoManager {
         }
     }
 
-    public Size getCacheSize(Context ctx) {
+    public Size getCacheSize() {
         Size result = new Size();
-        File file = StorageUtils.getIndividualCacheDirectory(ctx);
+        File file = StorageUtils.getIndividualCacheDirectory(
+                RunningEnvironment.getInstance().getApplicationContext());
         Size individualCacheSize = Utils.getDirSize(file);
         File file2 = getImagePipeLine();
         Size imagePipelineSize = Utils.getDirSize(file2);

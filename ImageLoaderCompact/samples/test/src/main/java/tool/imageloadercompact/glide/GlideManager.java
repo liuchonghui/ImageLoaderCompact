@@ -2,33 +2,44 @@ package tool.imageloadercompact.glide;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 
+import com.android.overlay.RunningEnvironment;
 import com.android.overlay.utils.LogUtils;
 import com.bumptech.glide.BitmapRequestBuilder;
 import com.bumptech.glide.BitmapTypeRequest;
 import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
-import com.facebook.imagepipeline.core.ImagePipelineConfig;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
+
+import java.io.File;
+import java.math.BigDecimal;
 
 import tool.imageloadercompact.CompactImageView;
+import tool.imageloadercompact.CompactImpl;
 import tool.imageloadercompact.ConnectionType;
+import tool.imageloadercompact.OnDiskCachesClearListener;
 import tool.imageloadercompact.OnFetchBitmapListener;
-import tool.imageloadercompact.fresco.PacketCollector;
+import tool.imageloadercompact.Size;
+import tool.imageloadercompact.StorageUtils;
+import tool.imageloadercompact.Utils;
 
-public class GlideManager {
+public class GlideManager implements CompactImpl {
 
     protected static GlideManager instance;
     protected boolean initialized = false;
-    protected ImagePipelineConfig config;
     PacketCollector packetCollector;
 //    OkHttpClient okHttpClient;
 
     static {
         instance = new GlideManager();
-//        RunningEnvironment.getInstance().addManager(instance);
     }
 
     public static GlideManager getInstance() {
@@ -36,6 +47,7 @@ public class GlideManager {
     }
 
     public GlideManager() {
+        packetCollector = new PacketCollector();
     }
 
     public void onStart() {
@@ -44,12 +56,71 @@ public class GlideManager {
     public void onLoad() {
     }
 
+    public void onInitialize() {
+    }
+
     public boolean isInitialized() {
         return this.initialized;
     }
 
+    public Size getCacheSize() {
+        Size size = new Size();
+        File cacheDir = Glide.getPhotoCacheDir(
+                RunningEnvironment.getInstance().getApplicationContext());
+        if (cacheDir.isDirectory()) {
+            size = Utils.getDirSize(cacheDir);
+        }
+        return size;
+    }
 
-    public void clearDiskCaches() {
+    public void clearDiskCaches(OnDiskCachesClearListener l) {
+        new Thread(new DiskCacheClearRunnable(l)).start();
+    }
+
+    class DiskCacheClearRunnable implements Runnable {
+        OnDiskCachesClearListener l;
+        public DiskCacheClearRunnable(OnDiskCachesClearListener l) {
+            this.l = l;
+        }
+
+        void doClean() {
+            try {
+                File cacheDir = Glide.getPhotoCacheDir(
+                        RunningEnvironment.getInstance().getApplicationContext());
+                Utils.delAllFile(cacheDir.getPath());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                File file = StorageUtils
+                        .getIndividualCacheDirectory(
+                                RunningEnvironment.getInstance().getApplicationContext());
+                Utils.delAllFile(file.getPath());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            Size size = getCacheSize();
+            BigDecimal bd = new BigDecimal(String.valueOf(size.getMSize()));
+            bd = bd.setScale(1, BigDecimal.ROUND_DOWN);
+            if (0 != bd.doubleValue()) {
+                clearDiskCaches(l);
+            } else {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (l != null) {
+                            l.onDiskCacheCleared();
+                        }
+                    }
+                });
+            }
+        }
+
+        @Override
+        public void run() {
+            doClean();
+        }
     }
 
     public void onConnectionChanged(ConnectionType type) {
@@ -68,57 +139,41 @@ public class GlideManager {
     public synchronized Bitmap fetchBitmapByUrl(String url) {
         LogUtils.d("FM", "fetchBitmapByUrl[" + url + "]");
         Bitmap bitmap = null;
-//        if (url == null || url.length() == 0) {
-//            return null;
-//        }
-//        ImageRequest imageRequest = ImageRequestBuilder
-//                .newBuilderWithSource(Uri.parse(url))
-//                .setProgressiveRenderingEnabled(true).build();
-//        ImagePipeline imagePipeline = Fresco.getImagePipeline();
-//        DataSource<CloseableReference<CloseableImage>> dataSource = imagePipeline
-//                .fetchDecodedImage(imageRequest, RunningEnvironment
-//                        .getInstance().getApplicationContext());
-//        Packet packet = new Packet(packetCollector, url);
-//        dataSource.subscribe(packet, CallerThreadExecutor.getInstance());
-//        Packet newPacket = packetCollector.nextResult();
-//        if (newPacket != null && url.equalsIgnoreCase(newPacket.getUrl())) {
-//            bitmap = newPacket.getBitmap();
-//        }
-//        if (bitmap != null && bitmap.isRecycled()) {
-//            bitmap = Bitmap.createBitmap(bitmap);
-//        }
+        if (url == null || url.length() == 0) {
+            return null;
+        }
+        Packet packet = new Packet(packetCollector, url);
+        Glide.with(RunningEnvironment.getInstance().getApplicationContext())
+                .load(url).into((Target) packet);
+        Packet newPacket = packetCollector.nextResult();
+        if (newPacket != null && url.equalsIgnoreCase(newPacket.getUrl())) {
+            bitmap = newPacket.getBitmap();
+        }
+        if (bitmap != null && bitmap.isRecycled()) {
+            bitmap = Bitmap.createBitmap(bitmap);
+        }
         return bitmap;
     }
 
     public void asyncFetchBitmapByUrl(final String url,
                                       final OnFetchBitmapListener l) {
-//        ImageRequest imageRequest = ImageRequestBuilder
-//                .newBuilderWithSource(Uri.parse(url))
-//                .setProgressiveRenderingEnabled(true).build();
-//        ImagePipeline imagePipeline = Fresco.getImagePipeline();
-//        DataSource<CloseableReference<CloseableImage>> dataSource = imagePipeline
-//                .fetchDecodedImage(imageRequest, RunningEnvironment
-//                        .getInstance().getApplicationContext());
-//        dataSource.subscribe(new BaseBitmapDataSubscriber() {
-//            @Override
-//            public void onNewResultImpl(@Nullable Bitmap bitmap) {
-//                // You can use the bitmap in only limited ways
-//                // No need to do any cleanup.
-//                if (bitmap != null && !bitmap.isRecycled()) {
-//                    if (l != null) {
-//                        l.onFetchBitmapSuccess(url, bitmap);
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailureImpl(DataSource dataSource) {
-//                // No cleanup required here.
-//                if (l != null) {
-//                    l.onFetchBitmapFailure(url);
-//                }
-//            }
-//        }, UiThreadExecutorService.getInstance());
+        SimpleTarget target = new SimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
+                if (l != null) {
+                    l.onFetchBitmapSuccess(url, bitmap);
+                }
+            }
+
+            @Override
+            public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                if (l != null) {
+                    l.onFetchBitmapFailure(url);
+                }
+            }
+        };
+        Glide.with(RunningEnvironment.getInstance().getApplicationContext())
+                .load(url).into(target);
     }
 
     public void displayImage(final Context ctx, final String url, final CompactImageView imageView) {
@@ -153,4 +208,5 @@ public class GlideManager {
             }
         }
     }
+
 }
