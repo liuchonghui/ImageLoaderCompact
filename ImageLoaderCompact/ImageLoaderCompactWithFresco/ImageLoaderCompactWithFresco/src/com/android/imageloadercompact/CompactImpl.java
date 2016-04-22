@@ -5,21 +5,25 @@ import android.graphics.Bitmap;
 
 public interface CompactImpl {
 
-    void onConnectionChanged(Context ctx, ConnectionType type);
+    void onConnectionChanged(ConnectionType type);
 
-    void onConnectionClosed(Context ctx);
+    void onConnectionClosed();
 
-    void onStart(Context ctx);
+    void onStart();
 
-    void onLoad(Context ctx);
+    void onLoad();
 
-    void onInitialize(Context ctx);
+    void onInitialize();
 
-    boolean isInitialized(Context ctx);
+    boolean isInitialized();
 
-    void clearDiskCaches(Context ctx);
+    void clearDiskCaches(OnDiskCachesClearListener l);
 
-    Bitmap fetchBitmapByUrl(Context ctx, String url);
+    Size getCacheSize();
 
-    void asyncFetchBitmapByUrl(Context ctx, String url, OnFetchBitmapListener l);
+    void displayImage(Context ctx, String url, CompactImageView imageView);
+
+    Bitmap fetchBitmapByUrl(String url);
+
+    void asyncFetchBitmapByUrl(String url, OnFetchBitmapListener l);
 }
