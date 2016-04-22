@@ -2,6 +2,12 @@ package tool.imageloadercompact;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Looper;
+
+import com.android.overlay.RunningEnvironment;
+
+import java.io.File;
 
 import tool.imageloadercompact.fresco.FrescoManager;
 import tool.imageloadercompact.glide.GlideManager;
@@ -78,10 +84,28 @@ public class ImageLoaderCompact implements CompactImpl {
     }
 
     @Override
-    public void clearDiskCaches() {
+    public void clearDiskCaches(final OnDiskCachesClearListener l) {
         if (useFresco) {
-            FrescoManager.getInstance().clearDiskCaches();
+            FrescoManager.getInstance().clearDiskCaches(l);
+        } else {
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    if (l != null) {
+                        l.onDiskCacheCleared();
+                    }
+                }
+            });
         }
+    }
+
+    @Override
+    public Size getCacheSize() {
+        if (useFresco) {
+            return FrescoManager.getInstance().getCacheSize(
+                    RunningEnvironment.getInstance().getApplicationContext());
+        }
+        return new Size();
     }
 
     @Override

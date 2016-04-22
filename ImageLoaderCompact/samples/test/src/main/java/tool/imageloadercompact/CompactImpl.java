@@ -18,7 +18,9 @@ public interface CompactImpl {
 
     boolean isInitialized();
 
-    void clearDiskCaches();
+    void clearDiskCaches(OnDiskCachesClearListener l);
+
+    Size getCacheSize();
 
     void displayImage(Context ctx, String url, CompactImageView imageView);
 

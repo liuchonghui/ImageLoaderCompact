@@ -3,6 +3,8 @@ package tool.imageloadercompact.fresco;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 
 import com.android.overlay.RunningEnvironment;
@@ -24,10 +26,16 @@ import com.facebook.imagepipeline.image.CloseableImage;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
+import java.io.File;
+import java.math.BigDecimal;
+
 import tool.imageloadercompact.CompactImageView;
 import tool.imageloadercompact.ConnectionType;
+import tool.imageloadercompact.OnDiskCachesClearListener;
 import tool.imageloadercompact.OnFetchBitmapListener;
+import tool.imageloadercompact.Size;
 import tool.imageloadercompact.StorageUtils;
+import tool.imageloadercompact.Utils;
 
 public class FrescoManager {
 
@@ -71,15 +79,63 @@ public class FrescoManager {
         return config;
     }
 
-    public void clearDiskCaches() {
-        Fresco.getImagePipeline().clearDiskCaches();
+    public File getImagePipeLine() {
+        DiskCacheConfig diskCacheConfig = FrescoManager.getInstance()
+                .getImagePipelineConfig().getMainDiskCacheConfig();
+        Supplier<File> supply = diskCacheConfig.getBaseDirectoryPathSupplier();
+        File imagepipe = supply.get();
+        return new File(imagepipe, diskCacheConfig.getBaseDirectoryName());
+    }
+
+    public void clearDiskCaches(OnDiskCachesClearListener l) {
+        new Thread(new DiskCacheClearRunnable(l)).start();
+    }
+
+    class DiskCacheClearRunnable implements Runnable {
+        OnDiskCachesClearListener l;
+        public DiskCacheClearRunnable(OnDiskCachesClearListener l) {
+            this.l = l;
+        }
+
+        void doClean() {
+            Fresco.getImagePipeline().clearDiskCaches();
+            try {
+                File file = StorageUtils
+                        .getIndividualCacheDirectory(
+                                RunningEnvironment.getInstance().getApplicationContext());
+                Utils.delAllFile(file.getPath());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            Size size = getCacheSize(RunningEnvironment.getInstance().getApplicationContext());
+            BigDecimal bd = new BigDecimal(String.valueOf(size.getMSize()));
+            bd = bd.setScale(1, BigDecimal.ROUND_DOWN);
+            if (0 != bd.doubleValue()) {
+                clearDiskCaches(l);
+            } else {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (l != null) {
+                            l.onDiskCacheCleared();
+                        }
+                    }
+                });
+            }
+        }
+
+        @Override
+        public void run() {
+            doClean();
+        }
     }
 
     public PipelineDraweeControllerBuilder newDraweeControllerBuilder() {
         return Fresco.newDraweeControllerBuilder();
     }
 
-//    @SuppressWarnings("rawtypes")
+    //    @SuppressWarnings("rawtypes")
 //    protected NetworkFetcher getConfigNetworkFetcher() {
 //        if (okHttpClient == null) {
 //            okHttpClient = new OkHttpClient();
@@ -287,5 +343,15 @@ public class FrescoManager {
         if (imageView != null && url != null && url.length() > 0) {
             imageView.setImageURI(Uri.parse(url));
         }
+    }
+
+    public Size getCacheSize(Context ctx) {
+        Size result = new Size();
+        File file = StorageUtils.getIndividualCacheDirectory(ctx);
+        Size individualCacheSize = Utils.getDirSize(file);
+        File file2 = getImagePipeLine();
+        Size imagePipelineSize = Utils.getDirSize(file2);
+        result.setValue(individualCacheSize.getValue() + imagePipelineSize.getValue());
+        return result;
     }
 }

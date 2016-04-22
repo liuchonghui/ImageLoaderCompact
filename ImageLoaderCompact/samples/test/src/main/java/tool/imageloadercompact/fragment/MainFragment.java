@@ -9,12 +9,18 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import java.math.BigDecimal;
 import java.net.URI;
 
 import tool.imageloadercompact.CompactImageView;
 import tool.imageloadercompact.ImageLoaderCompact;
+import tool.imageloadercompact.OnDiskCachesClearListener;
+import tool.imageloadercompact.Size;
 import tool.imageloadercompact.activity.CustomWaitDialog;
 import tool.imageloadercompact.test.R;
 
@@ -139,6 +145,27 @@ public class MainFragment extends BaseFragment {
         CompactImageView image3 = (CompactImageView) view.findViewById(R.id.news_logo);
         ImageLoaderCompact.getInstance().displayImage(
                 getActivity(), url, image3);
+
+        // CacheSize
+        TextView size = (TextView) view.findViewById(R.id.cache_size_text);
+        Size value = ImageLoaderCompact.getInstance().getCacheSize();
+        BigDecimal bd = new BigDecimal(String.valueOf(value.getMSize()));
+        bd = bd.setScale(1, BigDecimal.ROUND_DOWN);
+        size.setText(bd.toString());
+
+        Button btn = (Button) view.findViewById(R.id.clear_cache);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ImageLoaderCompact.getInstance().clearDiskCaches(
+                        new OnDiskCachesClearListener() {
+                    @Override
+                    public void onDiskCacheCleared() {
+                        Toast.makeText(getActivity(), "缓存已清空", Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
     }
 
     protected void flushPage() {

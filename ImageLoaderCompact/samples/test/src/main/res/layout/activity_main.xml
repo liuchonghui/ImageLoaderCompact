@@ -96,4 +96,43 @@
             compact:placeholderImage="@mipmap/ic_launcher"
             compact:roundedCornerRadius="6dp" />
     </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/alian_alian_alian_top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:layout_below="@+id/alian_alian_top_layout">
+        <TextView android:id="@+id/cache_size_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="#333333"
+            android:textSize="16sp"
+            android:text="缓存大小："/>
+        <TextView android:id="@+id/cache_size_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/cache_size_title"
+            android:textColor="#333333"
+            android:textSize="16sp"
+            android:text="1.6"/>
+        <TextView android:id="@+id/cache_size_scale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/cache_size_text"
+            android:textColor="#333333"
+            android:textSize="16sp"
+            android:text="M"/>
+        <Button android:id="@+id/clear_cache"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/cache_size_scale"
+            android:text="清空缓存"
+            android:textSize="10sp"
+            android:textColor="#666666"/>
+    </RelativeLayout>
 </RelativeLayout>
