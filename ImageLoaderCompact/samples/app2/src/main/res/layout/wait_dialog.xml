@@ -1,0 +1,27 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="ContentDescription"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    
+    <RelativeLayout android:id="@+id/wait_dialog_content_layout"
+                android:layout_width="wrap_content"
+                android:layout_centerInParent="true"
+			    android:layout_height="wrap_content">
+        <ProgressBar
+	        android:id="@+id/wait_dialog_loading_progress"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:indeterminate="true"/>
+	    <TextView android:id="@+id/wait_dialog_title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_toRightOf="@id/wait_dialog_loading_progress"
+	        android:layout_marginLeft="10dp"
+	        android:layout_centerVertical="true"
+	        android:textSize="14sp"
+	        android:textColor="#ffffff"
+	        android:text="加载中"/>
+    </RelativeLayout>
+</RelativeLayout>
