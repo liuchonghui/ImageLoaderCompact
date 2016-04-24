@@ -12,7 +12,7 @@ import com.android.imageloadercompact.CompactPhotoView;
 import com.android.imageloadercompact.ImageLoaderCompact;
 
 import tool.imageloadercompact.activity.CustomWaitDialog;
-import tool.imageloadercompact.app.R;
+import tool.imageloadercompact.app2.R;
 
 /**
  * @author liu_chonghui
