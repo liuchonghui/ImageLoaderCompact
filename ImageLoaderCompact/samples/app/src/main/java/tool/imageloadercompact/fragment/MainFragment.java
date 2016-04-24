@@ -151,7 +151,7 @@ public class MainFragment extends BaseFragment {
                 getActivity(), url, image3);
 
         // CacheSize
-        TextView size = (TextView) view.findViewById(R.id.cache_size_text);
+        final TextView size = (TextView) view.findViewById(R.id.cache_size_text);
         Size value = ImageLoaderCompact.getInstance().getCacheSize();
         BigDecimal bd = new BigDecimal(String.valueOf(value.getMSize()));
         bd = bd.setScale(1, BigDecimal.ROUND_DOWN);
@@ -166,6 +166,11 @@ public class MainFragment extends BaseFragment {
                     @Override
                     public void onDiskCacheCleared() {
                         Toast.makeText(getActivity(), "缓存已清空", Toast.LENGTH_LONG).show();
+
+                        Size value = ImageLoaderCompact.getInstance().getCacheSize();
+                        BigDecimal bd = new BigDecimal(String.valueOf(value.getMSize()));
+                        bd = bd.setScale(1, BigDecimal.ROUND_DOWN);
+                        size.setText(bd.toString());
                     }
                 });
             }
