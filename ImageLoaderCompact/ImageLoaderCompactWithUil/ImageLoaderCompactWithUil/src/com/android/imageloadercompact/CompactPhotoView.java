@@ -3,7 +3,7 @@ package com.android.imageloadercompact;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.android.imageloadercompact.glide.photoview.PhotoView;
+import com.android.imageloadercompact.uil.photoview.PhotoView;
 
 public class CompactPhotoView extends PhotoView {
     public CompactPhotoView(Context context) {

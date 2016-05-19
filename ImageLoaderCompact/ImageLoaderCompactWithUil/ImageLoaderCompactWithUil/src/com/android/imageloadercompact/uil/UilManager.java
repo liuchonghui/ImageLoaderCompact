@@ -1,8 +1,7 @@
-package com.android.imageloadercompact.glide;
+package com.android.imageloadercompact.uil;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
@@ -17,40 +16,52 @@ import com.android.imageloadercompact.OnFetchBitmapListener;
 import com.android.imageloadercompact.Size;
 import com.android.imageloadercompact.StorageUtils;
 import com.android.imageloadercompact.Utils;
-import com.bumptech.glide.BitmapRequestBuilder;
-import com.bumptech.glide.BitmapTypeRequest;
-import com.bumptech.glide.DrawableTypeRequest;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.Target;
+import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import java.io.File;
 import java.math.BigDecimal;
 
 
-public class GlideManager implements CompactImpl {
+public class UilManager implements CompactImpl {
 
-    protected static GlideManager instance;
+    protected static UilManager instance;
     protected boolean initialized = false;
     PacketCollector packetCollector;
 //    OkHttpClient okHttpClient;
 
     static {
-        instance = new GlideManager();
+        instance = new UilManager();
     }
 
-    public static GlideManager getInstance() {
+    public static UilManager getInstance() {
         return instance;
     }
 
-    public GlideManager() {
+    public UilManager() {
         packetCollector = new PacketCollector();
     }
 
     public void onStart() {
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+                ImageLoaderCompact.getInstance().getApplicationContext())
+                .memoryCacheExtraOptions(480, 800) // default = device screen dimensions
+                .threadPoolSize(3) // default
+                .threadPriority(Thread.NORM_PRIORITY - 1) // default
+                .tasksProcessingOrder(QueueProcessingType.FIFO) // default
+                .denyCacheImageMultipleSizesInMemory()
+                .memoryCache(new LruMemoryCache(2 * 1024 * 1024))
+                .memoryCacheSize(2 * 1024 * 1024)
+                .memoryCacheSizePercentage(13) // default
+                .diskCacheSize(50 * 1024 * 1024)
+                .diskCacheFileCount(100)
+                .defaultDisplayImageOptions(DisplayImageOptions.createSimple()) // default
+                .writeDebugLogs()
+                .build();
+        ImageLoader.getInstance().init(config);
     }
 
     public void onLoad() {
@@ -60,12 +71,12 @@ public class GlideManager implements CompactImpl {
     }
 
     public boolean isInitialized() {
-        return this.initialized;
+        return ImageLoader.getInstance().isInited();
     }
 
     public Size getCacheSize() {
         Size size = new Size();
-        File cacheDir = Glide.getPhotoCacheDir(
+        File cacheDir = StorageUtils.getCacheDirectory(
                 ImageLoaderCompact.getInstance().getApplicationContext());
         if (cacheDir.isDirectory()) {
             size = Utils.getDirSize(cacheDir);
@@ -85,7 +96,7 @@ public class GlideManager implements CompactImpl {
 
         void doClean() {
             try {
-                File cacheDir = Glide.getPhotoCacheDir(
+                File cacheDir = StorageUtils.getCacheDirectory(
                         ImageLoaderCompact.getInstance().getApplicationContext());
                 Utils.delAllFile(cacheDir.getPath());
             } catch (Exception e) {
@@ -142,8 +153,7 @@ public class GlideManager implements CompactImpl {
             return null;
         }
         Packet packet = new Packet(packetCollector, url);
-        Glide.with(ImageLoaderCompact.getInstance().getApplicationContext())
-                .load(url).into((Target) packet);
+        ImageLoader.getInstance().loadImage(url, packet);
         Packet newPacket = packetCollector.nextResult();
         if (newPacket != null && url.equalsIgnoreCase(newPacket.getUrl())) {
             bitmap = newPacket.getBitmap();
@@ -156,23 +166,22 @@ public class GlideManager implements CompactImpl {
 
     public void asyncFetchBitmapByUrl(final String url,
                                       final OnFetchBitmapListener l) {
-        SimpleTarget target = new SimpleTarget<GlideBitmapDrawable>() {
+        SimpleTarget target = new SimpleTarget() {
             @Override
-            public void onResourceReady(GlideBitmapDrawable bitmapDrawable, GlideAnimation glideAnimation) {
+            public void onResourceReady(String url, Bitmap bitmap) {
                 if (l != null) {
-                    l.onFetchBitmapSuccess(url, bitmapDrawable.getBitmap());
+                    l.onFetchBitmapSuccess(url, bitmap);
                 }
             }
 
             @Override
-            public void onLoadFailed(Exception e, Drawable errorDrawable) {
+            public void onLoadFailed() {
                 if (l != null) {
                     l.onFetchBitmapFailure(url);
                 }
             }
         };
-        Glide.with(ImageLoaderCompact.getInstance().getApplicationContext())
-                .load(url).into(target);
+        ImageLoader.getInstance().loadImage(url, target);
     }
 
     public void displayImage(final Context ctx, final String url, final CompactImageView imageView) {
@@ -194,18 +203,15 @@ public class GlideManager implements CompactImpl {
                             circularBitmapDrawable.setCornerRadius(roundedCornerRadius);
                         }
                         imageView.setImageDrawable(circularBitmapDrawable);
+                        imageView.invalidate();
                     }
                 };
             }
 
-            DrawableTypeRequest<String> request = Glide.with(ctx).load(url);
-            BitmapTypeRequest btr = request.asBitmap();
-            BitmapRequestBuilder builder = btr.centerCrop();
-            if (null == target) {
-                builder.placeholder(placeholderId).into(imageView);
-            } else {
-                builder.placeholder(placeholderId).into(target);
+            if (placeholderId > 0) {
+                imageView.setBackgroundResource(placeholderId);
             }
+            ImageLoader.getInstance().loadImage(url, target);
         }
     }
 

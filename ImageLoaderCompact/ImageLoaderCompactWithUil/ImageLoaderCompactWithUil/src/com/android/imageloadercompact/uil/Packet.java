@@ -1,17 +1,13 @@
-package com.android.imageloadercompact.glide;
+package com.android.imageloadercompact.uil;
 
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 
 /**
  * Packet with Bitmap.
  *
  * @author liu_chonghui
  */
-public class Packet extends SimpleTarget<Bitmap> {
+public class Packet extends SimpleTarget {
     PacketCollector pc;
     String url;
     Bitmap result;
@@ -33,8 +29,7 @@ public class Packet extends SimpleTarget<Bitmap> {
     }
 
     @Override
-    public void onResourceReady(Bitmap bitmap,
-                                GlideAnimation<? super Bitmap> glideAnimation) {
+    public void onResourceReady(String url, Bitmap bitmap) {
         if (bitmap != null && !bitmap.isRecycled()) {
             result = bitmap;
             pc.processPacket(this);
@@ -44,7 +39,7 @@ public class Packet extends SimpleTarget<Bitmap> {
     }
 
     @Override
-    public void onLoadFailed(Exception e, Drawable errorDrawable) {
+    public void onLoadFailed() {
         pc.processPacket(new Packet());
     }
 }

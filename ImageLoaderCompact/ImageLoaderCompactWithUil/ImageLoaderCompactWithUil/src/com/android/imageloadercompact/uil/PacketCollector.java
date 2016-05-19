@@ -1,4 +1,4 @@
-package com.android.imageloadercompact.glide;
+package com.android.imageloadercompact.uil;
 
 import java.util.LinkedList;
 
@@ -11,13 +11,13 @@ public class PacketCollector {
 
     private static final int MAX_PACKETS = 65536;
 
-    private LinkedList<com.android.imageloadercompact.glide.Packet> resultQueue;
+    private LinkedList<com.android.imageloadercompact.uil.Packet> resultQueue;
 
     public PacketCollector() {
-        this.resultQueue = new LinkedList<com.android.imageloadercompact.glide.Packet>();
+        this.resultQueue = new LinkedList<com.android.imageloadercompact.uil.Packet>();
     }
 
-    public synchronized com.android.imageloadercompact.glide.Packet pollResult() {
+    public synchronized com.android.imageloadercompact.uil.Packet pollResult() {
         if (resultQueue.isEmpty()) {
             return null;
         } else {
@@ -25,7 +25,7 @@ public class PacketCollector {
         }
     }
 
-    public synchronized com.android.imageloadercompact.glide.Packet nextResult() {
+    public synchronized com.android.imageloadercompact.uil.Packet nextResult() {
         while (resultQueue.isEmpty()) {
             try {
                 wait();

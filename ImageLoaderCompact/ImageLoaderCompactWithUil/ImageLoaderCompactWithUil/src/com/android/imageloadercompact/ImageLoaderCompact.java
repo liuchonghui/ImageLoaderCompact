@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
 
-import com.android.imageloadercompact.glide.GlideManager;
+import com.android.imageloadercompact.uil.UilManager;
 
 public class ImageLoaderCompact implements CompactImpl {
 
@@ -13,7 +13,7 @@ public class ImageLoaderCompact implements CompactImpl {
 
     private ImageLoaderCompact() {
         super();
-        GlideManager.getInstance();
+        UilManager.getInstance();
     }
 
     public static ImageLoaderCompact getInstance() {
@@ -44,57 +44,57 @@ public class ImageLoaderCompact implements CompactImpl {
 
     @Override
     public void onStart() {
-        GlideManager.getInstance().onStart();
+        UilManager.getInstance().onStart();
     }
 
     @Override
     public void onLoad() {
-        GlideManager.getInstance().onLoad();
+        UilManager.getInstance().onLoad();
     }
 
     @Override
     public void onInitialize() {
-        GlideManager.getInstance().onInitialized();
+        UilManager.getInstance().onInitialized();
     }
 
     @Override
     public boolean isInitialized() {
-        return GlideManager.getInstance().isInitialized();
+        return UilManager.getInstance().isInitialized();
     }
 
     @Override
     public void clearDiskCaches(final OnDiskCachesClearListener l) {
-        GlideManager.getInstance().clearDiskCaches(l);
+        UilManager.getInstance().clearDiskCaches(l);
     }
 
     @Override
     public Size getCacheSize() {
-        return GlideManager.getInstance().getCacheSize();
+        return UilManager.getInstance().getCacheSize();
     }
 
     @Override
     public void displayImage(Context ctx, String url, CompactImageView imageView) {
-        GlideManager.getInstance().displayImage(ctx, url, imageView);
+        UilManager.getInstance().displayImage(ctx, url, imageView);
     }
 
     @Override
     public Bitmap fetchBitmapByUrl(String url) {
-        return GlideManager.getInstance().fetchBitmapByUrl(url);
+        return UilManager.getInstance().fetchBitmapByUrl(url);
     }
 
     @Override
     public void asyncFetchBitmapByUrl(String url,
                                       OnFetchBitmapListener l) {
-        GlideManager.getInstance().asyncFetchBitmapByUrl(url, l);
+        UilManager.getInstance().asyncFetchBitmapByUrl(url, l);
     }
 
     @Override
     public void onConnectionChanged(ConnectionType type) {
-        GlideManager.getInstance().onConnectionChanged(type);
+        UilManager.getInstance().onConnectionChanged(type);
     }
 
     @Override
     public void onConnectionClosed() {
-        GlideManager.getInstance().onConnectionClosed();
+        UilManager.getInstance().onConnectionClosed();
     }
 }

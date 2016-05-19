@@ -1,4 +1,4 @@
-package com.android.imageloadercompact.glide.photoview;
+package com.android.imageloadercompact.uil.photoview;
 
 /*******************************************************************************
  * Copyright 2011, 2012 Chris Banes.
