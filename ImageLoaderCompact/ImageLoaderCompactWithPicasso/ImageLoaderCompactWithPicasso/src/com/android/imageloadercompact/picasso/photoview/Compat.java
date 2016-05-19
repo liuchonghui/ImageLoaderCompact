@@ -1,4 +1,4 @@
-package com.android.imageloadercompact.glide.photoview;
+package com.android.imageloadercompact.picasso.photoview;
 
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;

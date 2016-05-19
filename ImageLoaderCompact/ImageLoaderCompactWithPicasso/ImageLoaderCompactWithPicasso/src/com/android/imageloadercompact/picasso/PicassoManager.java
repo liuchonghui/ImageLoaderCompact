@@ -1,12 +1,10 @@
-package com.android.imageloadercompact.glide;
+package com.android.imageloadercompact.picasso;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 
 import com.android.imageloadercompact.CompactImageView;
 import com.android.imageloadercompact.CompactImpl;
@@ -17,36 +15,28 @@ import com.android.imageloadercompact.OnFetchBitmapListener;
 import com.android.imageloadercompact.Size;
 import com.android.imageloadercompact.StorageUtils;
 import com.android.imageloadercompact.Utils;
-import com.bumptech.glide.BitmapRequestBuilder;
-import com.bumptech.glide.BitmapTypeRequest;
-import com.bumptech.glide.DrawableTypeRequest;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.Target;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.math.BigDecimal;
 
 
-public class GlideManager implements CompactImpl {
+public class PicassoManager implements CompactImpl {
 
-    protected static GlideManager instance;
+    protected static PicassoManager instance;
     protected boolean initialized = false;
     PacketCollector packetCollector;
 //    OkHttpClient okHttpClient;
 
     static {
-        instance = new GlideManager();
+        instance = new PicassoManager();
     }
 
-    public static GlideManager getInstance() {
+    public static PicassoManager getInstance() {
         return instance;
     }
 
-    public GlideManager() {
+    public PicassoManager() {
         packetCollector = new PacketCollector();
     }
 
@@ -142,7 +132,7 @@ public class GlideManager implements CompactImpl {
             return null;
         }
         Packet packet = new Packet(packetCollector, url);
-        Glide.with(ImageLoaderCompact.getInstance().getApplicationContext())
+        Picasso.with(ImageLoaderCompact.getInstance().getApplicationContext())
                 .load(url).into((Target) packet);
         Packet newPacket = packetCollector.nextResult();
         if (newPacket != null && url.equalsIgnoreCase(newPacket.getUrl())) {

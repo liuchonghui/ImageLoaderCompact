@@ -5,7 +5,7 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-import com.android.imageloadercompact.glide.R;
+import com.android.imageloadercompact.picasso.R;
 
 public class CompactImageView extends ImageView {
 

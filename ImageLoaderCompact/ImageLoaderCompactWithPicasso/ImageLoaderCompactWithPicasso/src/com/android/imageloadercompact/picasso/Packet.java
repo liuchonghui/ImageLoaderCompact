@@ -1,4 +1,4 @@
-package com.android.imageloadercompact.glide;
+package com.android.imageloadercompact.picasso;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;

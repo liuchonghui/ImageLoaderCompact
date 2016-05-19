@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
 
-import com.android.imageloadercompact.glide.GlideManager;
+import com.android.imageloadercompact.picasso.PicassoManager;
 
 public class ImageLoaderCompact implements CompactImpl {
 
@@ -13,7 +13,7 @@ public class ImageLoaderCompact implements CompactImpl {
 
     private ImageLoaderCompact() {
         super();
-        GlideManager.getInstance();
+        PicassoManager.getInstance();
     }
 
     public static ImageLoaderCompact getInstance() {
@@ -44,57 +44,57 @@ public class ImageLoaderCompact implements CompactImpl {
 
     @Override
     public void onStart() {
-        GlideManager.getInstance().onStart();
+        PicassoManager.getInstance().onStart();
     }
 
     @Override
     public void onLoad() {
-        GlideManager.getInstance().onLoad();
+        PicassoManager.getInstance().onLoad();
     }
 
     @Override
     public void onInitialize() {
-        GlideManager.getInstance().onInitialized();
+        PicassoManager.getInstance().onInitialized();
     }
 
     @Override
     public boolean isInitialized() {
-        return GlideManager.getInstance().isInitialized();
+        return PicassoManager.getInstance().isInitialized();
     }
 
     @Override
     public void clearDiskCaches(final OnDiskCachesClearListener l) {
-        GlideManager.getInstance().clearDiskCaches(l);
+        PicassoManager.getInstance().clearDiskCaches(l);
     }
 
     @Override
     public Size getCacheSize() {
-        return GlideManager.getInstance().getCacheSize();
+        return PicassoManager.getInstance().getCacheSize();
     }
 
     @Override
     public void displayImage(Context ctx, String url, CompactImageView imageView) {
-        GlideManager.getInstance().displayImage(ctx, url, imageView);
+        PicassoManager.getInstance().displayImage(ctx, url, imageView);
     }
 
     @Override
     public Bitmap fetchBitmapByUrl(String url) {
-        return GlideManager.getInstance().fetchBitmapByUrl(url);
+        return PicassoManager.getInstance().fetchBitmapByUrl(url);
     }
 
     @Override
     public void asyncFetchBitmapByUrl(String url,
                                       OnFetchBitmapListener l) {
-        GlideManager.getInstance().asyncFetchBitmapByUrl(url, l);
+        PicassoManager.getInstance().asyncFetchBitmapByUrl(url, l);
     }
 
     @Override
     public void onConnectionChanged(ConnectionType type) {
-        GlideManager.getInstance().onConnectionChanged(type);
+        PicassoManager.getInstance().onConnectionChanged(type);
     }
 
     @Override
     public void onConnectionClosed() {
-        GlideManager.getInstance().onConnectionClosed();
+        PicassoManager.getInstance().onConnectionClosed();
     }
 }
