@@ -18,7 +18,7 @@ dependencies {
     }
     String useCompactPicasso = "${USE_COMPACT_PICASSO}"
     if ("true".equals(useCompactPicasso)) {
-        compile project(':ImageLoaderCompactWithPicass:ImageLoaderCompactWithPicass')
+        compile project(':ImageLoaderCompactWithPicasso:ImageLoaderCompactWithPicasso')
     }
     compile "com.sinagame:WindowAttacher:${WINDOW_ATTACHER_VERSION}"
     compile "tools.android:Overlay:${OVERLAY_VERSION}"

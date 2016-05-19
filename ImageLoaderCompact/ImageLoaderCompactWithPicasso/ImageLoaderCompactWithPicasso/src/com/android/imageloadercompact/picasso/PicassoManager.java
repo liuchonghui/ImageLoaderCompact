@@ -200,11 +200,16 @@ public class PicassoManager implements CompactImpl {
                 };
             }
 
-            RequestCreator builder = Picasso.with(ctx).load(url).centerCrop();
+            RequestCreator builder = Picasso.with(ctx).load(url);
             if (null == target) {
-                builder.placeholder(placeholderId).into(imageView);
+                builder.placeholder(placeholderId).fit().into(imageView);
             } else {
-                builder.placeholder(placeholderId).into(target);
+                if (imageView.getMeasuredHeight() > 0 && imageView.getMeasuredWidth() > 0) {
+                    builder.placeholder(placeholderId).resize(imageView.getMeasuredWidth(),
+                            imageView.getMeasuredHeight()).centerCrop().into(target);
+                } else {
+                    builder.placeholder(placeholderId).into(target);
+                }
             }
         }
     }
