@@ -5,17 +5,9 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-import com.android.imageloadercompact.fresco.R;
-import com.facebook.drawee.generic.GenericDraweeHierarchy;
-import com.facebook.drawee.generic.RoundingParams;
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.android.imageloadercompact.glide.R;
 
-public class CompactImageView extends SimpleDraweeView {
-
-    public CompactImageView(Context context, GenericDraweeHierarchy hierarchy) {
-        super(context, hierarchy);
-        init(context, null);
-    }
+public class CompactImageView extends ImageView {
 
     public CompactImageView(Context context) {
         super(context);
@@ -83,32 +75,16 @@ public class CompactImageView extends SimpleDraweeView {
 
     public void setPlaceholderId(int placeholderId) {
         this.placeholderId = placeholderId;
-        GenericDraweeHierarchy hierarchy = getHierarchy();
-        hierarchy.setPlaceholderImage(this.placeholderId);
         invalidate();
     }
 
     public void roundAsCircle(boolean roundAsCircle) {
         this.roundAsCircle = roundAsCircle;
-        GenericDraweeHierarchy hierarchy = getHierarchy();
-        RoundingParams rp = hierarchy.getRoundingParams();
-        if (null == rp) {
-            rp = new RoundingParams();
-        }
-        rp.setRoundAsCircle(this.roundAsCircle);
-        hierarchy.setRoundingParams(rp);
         invalidate();
     }
 
     public void roundedCornerRadius(int roundedCornerRadius) {
         this.roundedCornerRadius = roundedCornerRadius;
-        GenericDraweeHierarchy hierarchy = getHierarchy();
-        RoundingParams rp = hierarchy.getRoundingParams();
-        if (null == rp) {
-            rp = new RoundingParams();
-        }
-        rp.setCornersRadius(this.roundedCornerRadius);
-        hierarchy.setRoundingParams(rp);
         invalidate();
     }
 }

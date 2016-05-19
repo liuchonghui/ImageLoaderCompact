@@ -1,7 +1,4 @@
-package com.android.imageloadercompact.fresco.photodraweeview;
-
-/**
- * ****************************************************************************
+/*******************************************************************************
  * Copyright 2011, 2012 Chris Banes.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,15 +12,17 @@ package com.android.imageloadercompact.fresco.photodraweeview;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * *****************************************************************************
- */
+ *******************************************************************************/
+package com.android.imageloadercompact.glide.photoview;
 
-public interface OnScaleDragGestureListener {
-    void onDrag(float dx, float dy);
+import android.annotation.TargetApi;
+import android.view.View;
 
-    void onFling(float startX, float startY, float velocityX, float velocityY);
+@TargetApi(16)
+public class SDK16 {
 
-    void onScale(float scaleFactor, float focusX, float focusY);
-
-    void onScaleEnd();
+	public static void postOnAnimation(View view, Runnable r) {
+		view.postOnAnimation(r);
+	}
+	
 }

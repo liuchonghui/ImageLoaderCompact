@@ -3,23 +3,18 @@ package com.android.imageloadercompact;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.android.imageloadercompact.fresco.photodraweeview.PhotoDraweeView;
-import com.facebook.drawee.generic.GenericDraweeHierarchy;
+import com.android.imageloadercompact.glide.photoview.PhotoView;
 
-public class CompactPhotoView extends PhotoDraweeView {
-    public CompactPhotoView(Context context, GenericDraweeHierarchy hierarchy) {
-        super(context, hierarchy);
-    }
-
+public class CompactPhotoView extends PhotoView {
     public CompactPhotoView(Context context) {
         super(context);
     }
 
-    public CompactPhotoView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+    public CompactPhotoView(Context context, AttributeSet attr) {
+        super(context, attr);
     }
 
-    public CompactPhotoView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
+    public CompactPhotoView(Context context, AttributeSet attr, int defStyle) {
+        super(context, attr, defStyle);
     }
 }

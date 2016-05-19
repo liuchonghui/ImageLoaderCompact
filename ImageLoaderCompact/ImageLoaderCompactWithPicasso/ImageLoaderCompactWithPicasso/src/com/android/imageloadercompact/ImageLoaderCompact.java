@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
 
-import com.android.imageloadercompact.fresco.FrescoManager;
+import com.android.imageloadercompact.glide.GlideManager;
 
 public class ImageLoaderCompact implements CompactImpl {
 
@@ -13,7 +13,7 @@ public class ImageLoaderCompact implements CompactImpl {
 
     private ImageLoaderCompact() {
         super();
-        FrescoManager.getInstance();
+        GlideManager.getInstance();
     }
 
     public static ImageLoaderCompact getInstance() {
@@ -44,57 +44,57 @@ public class ImageLoaderCompact implements CompactImpl {
 
     @Override
     public void onStart() {
-        FrescoManager.getInstance().onStart();
+        GlideManager.getInstance().onStart();
     }
 
     @Override
     public void onLoad() {
-        FrescoManager.getInstance().onLoad();
+        GlideManager.getInstance().onLoad();
     }
 
     @Override
     public void onInitialize() {
-        FrescoManager.getInstance().onInitialized();
+        GlideManager.getInstance().onInitialized();
     }
 
     @Override
     public boolean isInitialized() {
-        return FrescoManager.getInstance().isInitialized();
+        return GlideManager.getInstance().isInitialized();
     }
 
     @Override
     public void clearDiskCaches(final OnDiskCachesClearListener l) {
-        FrescoManager.getInstance().clearDiskCaches(l);
+        GlideManager.getInstance().clearDiskCaches(l);
     }
 
     @Override
     public Size getCacheSize() {
-        return FrescoManager.getInstance().getCacheSize();
+        return GlideManager.getInstance().getCacheSize();
     }
 
     @Override
     public void displayImage(Context ctx, String url, CompactImageView imageView) {
-        FrescoManager.getInstance().displayImage(ctx, url, imageView);
+        GlideManager.getInstance().displayImage(ctx, url, imageView);
     }
 
     @Override
     public Bitmap fetchBitmapByUrl(String url) {
-        return FrescoManager.getInstance().fetchBitmapByUrl(url);
+        return GlideManager.getInstance().fetchBitmapByUrl(url);
     }
 
     @Override
     public void asyncFetchBitmapByUrl(String url,
                                       OnFetchBitmapListener l) {
-        FrescoManager.getInstance().asyncFetchBitmapByUrl(url, l);
+        GlideManager.getInstance().asyncFetchBitmapByUrl(url, l);
     }
 
     @Override
     public void onConnectionChanged(ConnectionType type) {
-        FrescoManager.getInstance().onConnectionChanged(type);
+        GlideManager.getInstance().onConnectionChanged(type);
     }
 
     @Override
     public void onConnectionClosed() {
-        FrescoManager.getInstance().onConnectionClosed();
+        GlideManager.getInstance().onConnectionClosed();
     }
 }
