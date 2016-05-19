@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.view.ViewGroup;
 
 import com.android.imageloadercompact.CompactImageView;
 import com.android.imageloadercompact.CompactImpl;
@@ -81,6 +82,7 @@ public class PicassoManager implements CompactImpl {
 
     class DiskCacheClearRunnable implements Runnable {
         OnDiskCachesClearListener l;
+
         public DiskCacheClearRunnable(OnDiskCachesClearListener l) {
             this.l = l;
         }
@@ -196,22 +198,24 @@ public class PicassoManager implements CompactImpl {
                             circularBitmapDrawable.setCornerRadius(roundedCornerRadius);
                         }
                         imageView.setImageDrawable(circularBitmapDrawable);
+                        imageView.invalidate();
                     }
                 };
             }
 
             RequestCreator builder = Picasso.with(ctx).load(url);
+            if (placeholderId > 0) {
+                builder = builder.placeholder(placeholderId);
+            }
+            ViewGroup.LayoutParams lp = imageView.getLayoutParams();
+            if (lp.width > 0 && lp.height > 0) {
+                builder = builder.resize(lp.width, lp.height).centerCrop();
+            }
             if (null == target) {
-                builder.placeholder(placeholderId).fit().into(imageView);
+                builder.into(imageView);
             } else {
-                if (imageView.getMeasuredHeight() > 0 && imageView.getMeasuredWidth() > 0) {
-                    builder.placeholder(placeholderId).resize(imageView.getMeasuredWidth(),
-                            imageView.getMeasuredHeight()).centerCrop().into(target);
-                } else {
-                    builder.placeholder(placeholderId).into(target);
-                }
+                builder.into(target);
             }
         }
     }
-
 }
