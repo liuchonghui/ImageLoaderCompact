@@ -1,6 +1,7 @@
 //include ':Overlay:Overlay' // 方便调试的简单框架
 include ':ImageLoaderCompactWithFresco:ImageLoaderCompactWithFresco'
 include ':ImageLoaderCompactWithGlide:ImageLoaderCompactWithGlide'
+include ':ImageLoaderCompactWithPicasso:ImageLoaderCompactWithPicasso'
 include ':samples:app' // 用compile方式使用ImageLoaderCompact
 include ':samples:app2' // 用compile project方式使用ImageLoaderCompact
 include ':samples:test' // 作者测试ImageLoaderCompact专用Demo
