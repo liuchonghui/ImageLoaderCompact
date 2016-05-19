@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 
 import com.android.imageloadercompact.CompactImageView;
 import com.android.imageloadercompact.CompactImpl;
@@ -16,6 +18,7 @@ import com.android.imageloadercompact.Size;
 import com.android.imageloadercompact.StorageUtils;
 import com.android.imageloadercompact.Utils;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -26,7 +29,6 @@ public class PicassoManager implements CompactImpl {
     protected static PicassoManager instance;
     protected boolean initialized = false;
     PacketCollector packetCollector;
-//    OkHttpClient okHttpClient;
 
     static {
         instance = new PicassoManager();
@@ -41,6 +43,7 @@ public class PicassoManager implements CompactImpl {
     }
 
     public void onStart() {
+        initialized = true;
     }
 
     public void onLoad() {
@@ -55,12 +58,21 @@ public class PicassoManager implements CompactImpl {
 
     public Size getCacheSize() {
         Size size = new Size();
-        File cacheDir = Glide.getPhotoCacheDir(
+        File cacheDir = createPicassoDefaultCacheDir(
                 ImageLoaderCompact.getInstance().getApplicationContext());
         if (cacheDir.isDirectory()) {
             size = Utils.getDirSize(cacheDir);
         }
         return size;
+    }
+
+    File createPicassoDefaultCacheDir(Context context) {
+        File cache = new File(context.getApplicationContext().getCacheDir(), "picasso-cache");
+        if (!cache.exists()) {
+            //noinspection ResultOfMethodCallIgnored
+            cache.mkdirs();
+        }
+        return cache;
     }
 
     public void clearDiskCaches(OnDiskCachesClearListener l) {
@@ -75,7 +87,7 @@ public class PicassoManager implements CompactImpl {
 
         void doClean() {
             try {
-                File cacheDir = Glide.getPhotoCacheDir(
+                File cacheDir = createPicassoDefaultCacheDir(
                         ImageLoaderCompact.getInstance().getApplicationContext());
                 Utils.delAllFile(cacheDir.getPath());
             } catch (Exception e) {
@@ -133,7 +145,7 @@ public class PicassoManager implements CompactImpl {
         }
         Packet packet = new Packet(packetCollector, url);
         Picasso.with(ImageLoaderCompact.getInstance().getApplicationContext())
-                .load(url).into((Target) packet);
+                .load(url).into(packet);
         Packet newPacket = packetCollector.nextResult();
         if (newPacket != null && url.equalsIgnoreCase(newPacket.getUrl())) {
             bitmap = newPacket.getBitmap();
@@ -146,22 +158,22 @@ public class PicassoManager implements CompactImpl {
 
     public void asyncFetchBitmapByUrl(final String url,
                                       final OnFetchBitmapListener l) {
-        SimpleTarget target = new SimpleTarget<GlideBitmapDrawable>() {
+        SimpleTarget target = new SimpleTarget() {
             @Override
-            public void onResourceReady(GlideBitmapDrawable bitmapDrawable, GlideAnimation glideAnimation) {
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                 if (l != null) {
-                    l.onFetchBitmapSuccess(url, bitmapDrawable.getBitmap());
+                    l.onFetchBitmapSuccess(url, bitmap);
                 }
             }
 
             @Override
-            public void onLoadFailed(Exception e, Drawable errorDrawable) {
+            public void onBitmapFailed(Drawable errorDrawable) {
                 if (l != null) {
                     l.onFetchBitmapFailure(url);
                 }
             }
         };
-        Glide.with(ImageLoaderCompact.getInstance().getApplicationContext())
+        Picasso.with(ImageLoaderCompact.getInstance().getApplicationContext())
                 .load(url).into(target);
     }
 
@@ -188,9 +200,7 @@ public class PicassoManager implements CompactImpl {
                 };
             }
 
-            DrawableTypeRequest<String> request = Glide.with(ctx).load(url);
-            BitmapTypeRequest btr = request.asBitmap();
-            BitmapRequestBuilder builder = btr.centerCrop();
+            RequestCreator builder = Picasso.with(ctx).load(url).centerCrop();
             if (null == target) {
                 builder.placeholder(placeholderId).into(imageView);
             } else {
