@@ -21,6 +21,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -211,7 +212,17 @@ public class UilManager implements CompactImpl {
             if (placeholderId > 0) {
                 imageView.setBackgroundResource(placeholderId);
             }
-            ImageLoader.getInstance().loadImage(url, target);
+
+            DisplayImageOptions defaultOptions;
+            defaultOptions = new DisplayImageOptions.Builder()
+                    .resetViewBeforeLoading(true)
+                    .displayer(new FadeInBitmapDisplayer(700))
+                    .cacheOnDisk(true)
+                    .cacheInMemory(true)
+                    .bitmapConfig(Bitmap.Config.RGB_565)
+                    .build();
+
+            ImageLoader.getInstance().loadImage(url, defaultOptions, target);
         }
     }
 
