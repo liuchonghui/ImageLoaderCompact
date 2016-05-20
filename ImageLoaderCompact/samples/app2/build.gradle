@@ -20,6 +20,10 @@ dependencies {
     if ("true".equals(useCompactPicasso)) {
         compile project(':ImageLoaderCompactWithPicasso:ImageLoaderCompactWithPicasso')
     }
+    String useCompactUil = "${USE_COMPACT_UIL}"
+    if ("true".equals(useCompactUil)) {
+        compile project(':ImageLoaderCompactWithUil:ImageLoaderCompactWithUil')
+    }
     compile "com.sinagame:WindowAttacher:${WINDOW_ATTACHER_VERSION}"
     compile "tools.android:Overlay:${OVERLAY_VERSION}"
 }
