@@ -12,13 +12,13 @@
             if ("true".equals("${USE_COMPACT_FRESCO}")) {
                 compile 'tools.android:ImageLoaderCompactWithFresco:1.0.4'
             }
-            if ("true".equals("${USE_COMPACT_GLIDE}")) {
+            else if ("true".equals("${USE_COMPACT_GLIDE}")) {
                 compile 'tools.android:ImageLoaderCompactWithGlide:1.0.4'
             }
-            if ("true".equals("${USE_COMPACT_PICASSO}")) {
+            else if ("true".equals("${USE_COMPACT_PICASSO}")) {
                 compile 'tools.android:ImageLoaderCompactWithPicasso:1.0.0'
             }
-            if ("true".equals("${USE_COMPACT_UIL}")) {
+            else if ("true".equals("${USE_COMPACT_UIL}")) {
                 compile 'tools.android:ImageLoaderCompactWithUil:1.0.0'
             }
             
@@ -26,13 +26,13 @@
             if ("true".equals("${USE_COMPACT_FRESCO}")) {
                 compile project(':ImageLoaderCompactWithFresco:ImageLoaderCompactWithFresco')
             }
-            if ("true".equals("${USE_COMPACT_GLIDE}")) {
+            else if ("true".equals("${USE_COMPACT_GLIDE}")) {
                 compile project(':ImageLoaderCompactWithGlide:ImageLoaderCompactWithGlide')
             }
-            if ("true".equals("${USE_COMPACT_PICASSO}")) {
+            else if ("true".equals("${USE_COMPACT_PICASSO}")) {
                 compile project(':ImageLoaderCompactWithPicasso:ImageLoaderCompactWithPicasso')
             }
-            if ("true".equals("${USE_COMPACT_UIL}")) {
+            else if ("true".equals("${USE_COMPACT_UIL}")) {
                 compile project(':ImageLoaderCompactWithUil:ImageLoaderCompactWithUil')
             }
       2. Load images:     
@@ -61,7 +61,7 @@
                 .addRule(RelativeLayout.ALIGN_PARENT_LEFT);
             imageview1.setPlaceholderId(R.mipmap.ic_launcher);
             ImageLoaderCompact.getInstance().displayImage(getActivity(), url, imageview1);
-      3. Function compacted:
+      3. Invoking compacted:
       Count cache size:
             final TextView size = (TextView) view.findViewById(R.id.cache_size_text);
             Size value = ImageLoaderCompact.getInstance().getCacheSize();
