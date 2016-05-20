@@ -1,10 +1,15 @@
 # ImageLoaderCompact
+      Compact invoking with 4 imageloaders
 # Contains:
       Fresco-0.8.0+                        ImageLoaderCompactWithFresco
       Glide-3.5.2                          ImageLoaderCompactWithGlide
       Picasso-2.5.2                        ImageLoaderCompactWithPicasso
       Universal-Image-Loader-1.9.5         ImageLoaderCompactWithUil
-      Choose one above you like.
+      Choose (only) one above you like.
+      
+      :samples:app      PS. Demo by 'compile' way
+      :samples:app2     PS. Demo by 'compile project' way
+      
 # How to use:
       1. Select one imageloader:
       in build.gradle:
