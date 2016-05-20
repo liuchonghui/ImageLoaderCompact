@@ -151,6 +151,7 @@
             imageview1.setPlaceholderId(R.mipmap.ic_launcher);
             imageview1.roundedCornerRadius(dp6);
             
-            
+# License
+      This project is BSD-licensed, you are good to go.        
             
             
