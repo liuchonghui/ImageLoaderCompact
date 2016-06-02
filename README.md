@@ -14,30 +14,38 @@
       1. Select one imageloader:
       in build.gradle:
             
-            if ("true".equals("${USE_COMPACT_FRESCO}")) {
+            String useCompactFresco = "${USE_COMPACT_FRESCO}"
+            if ("true".equals(useCompactFresco)) {
                 compile 'tools.android:ImageLoaderCompactWithFresco:1.0.4'
             }
-            else if ("true".equals("${USE_COMPACT_GLIDE}")) {
+            String useCompactGlide = "${USE_COMPACT_GLIDE}"
+            if ("true".equals(useCompactGlide)) {
                 compile 'tools.android:ImageLoaderCompactWithGlide:1.0.4'
             }
-            else if ("true".equals("${USE_COMPACT_PICASSO}")) {
+            String useCompactPicasso = "${USE_COMPACT_PICASSO}"
+            if ("true".equals(useCompactPicasso)) {
                 compile 'tools.android:ImageLoaderCompactWithPicasso:1.0.0'
             }
-            else if ("true".equals("${USE_COMPACT_UIL}")) {
+            String useCompactUil = "${USE_COMPACT_UIL}"
+            if ("true".equals(useCompactUil)) {
                 compile 'tools.android:ImageLoaderCompactWithUil:1.0.0'
             }
             
           or
-            if ("true".equals("${USE_COMPACT_FRESCO}")) {
+            String useCompactFresco = "${USE_COMPACT_FRESCO}"
+            if ("true".equals(useCompactFresco)) {
                 compile project(':ImageLoaderCompactWithFresco:ImageLoaderCompactWithFresco')
             }
-            else if ("true".equals("${USE_COMPACT_GLIDE}")) {
+            String useCompactGlide = "${USE_COMPACT_GLIDE}"
+            if ("true".equals(useCompactGlide)) {
                 compile project(':ImageLoaderCompactWithGlide:ImageLoaderCompactWithGlide')
             }
-            else if ("true".equals("${USE_COMPACT_PICASSO}")) {
+            String useCompactPicasso = "${USE_COMPACT_PICASSO}"
+            if ("true".equals(useCompactPicasso)) {
                 compile project(':ImageLoaderCompactWithPicasso:ImageLoaderCompactWithPicasso')
             }
-            else if ("true".equals("${USE_COMPACT_UIL}")) {
+            String useCompactUil = "${USE_COMPACT_UIL}"
+            if ("true".equals(useCompactUil)) {
                 compile project(':ImageLoaderCompactWithUil:ImageLoaderCompactWithUil')
             }
       2. Load images:     
