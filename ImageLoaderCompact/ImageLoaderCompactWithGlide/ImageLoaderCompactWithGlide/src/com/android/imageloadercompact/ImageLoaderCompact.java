@@ -29,6 +29,7 @@ public class ImageLoaderCompact implements CompactImpl {
 
     public void init(Application application) {
         applicationContext = application.getApplicationContext();
+        GlideManager.getInstance().init(applicationContext);
     }
 
     public Context getApplicationContext() {

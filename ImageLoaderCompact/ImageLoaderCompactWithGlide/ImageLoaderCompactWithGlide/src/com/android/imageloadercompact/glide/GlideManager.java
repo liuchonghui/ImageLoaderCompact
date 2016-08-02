@@ -21,6 +21,8 @@ import com.bumptech.glide.BitmapRequestBuilder;
 import com.bumptech.glide.BitmapTypeRequest;
 import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.GlideBuilder;
+import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
@@ -48,6 +50,10 @@ public class GlideManager implements CompactImpl {
 
     public GlideManager() {
         packetCollector = new PacketCollector();
+    }
+
+    public void init(Context appContext) {
+        Glide.setup(new GlideBuilder(appContext).setDecodeFormat(DecodeFormat.ALWAYS_ARGB_8888));
     }
 
     public void onStart() {
