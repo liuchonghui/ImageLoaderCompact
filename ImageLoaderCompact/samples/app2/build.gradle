@@ -9,19 +9,19 @@ dependencies {
     compile "com.android.support:recyclerview-v7:${COMPILE_SUGGEST_SDK_VERSION}"
     compile 'com.android.support:multidex:1.0.1'
     String useCompactFresco = "${USE_COMPACT_FRESCO}"
-    if ("true".equals(useCompactFresco)) {
+    if ("true".equals("${USE_COMPACT_FRESCO}")) {
         compile project(':ImageLoaderCompactWithFresco:ImageLoaderCompactWithFresco')
     }
     String useCompactGlide = "${USE_COMPACT_GLIDE}"
-    if ("true".equals(useCompactGlide)) {
+    if ("true".equals("${USE_COMPACT_GLIDE}")) {
         compile project(':ImageLoaderCompactWithGlide:ImageLoaderCompactWithGlide')
     }
     String useCompactPicasso = "${USE_COMPACT_PICASSO}"
-    if ("true".equals(useCompactPicasso)) {
+    if ("true".equals("${USE_COMPACT_PICASSO}")) {
         compile project(':ImageLoaderCompactWithPicasso:ImageLoaderCompactWithPicasso')
     }
     String useCompactUil = "${USE_COMPACT_UIL}"
-    if ("true".equals(useCompactUil)) {
+    if ("true".equals("${USE_COMPACT_UIL}")) {
         compile project(':ImageLoaderCompactWithUil:ImageLoaderCompactWithUil')
     }
     compile "com.sinagame:WindowAttacher:${WINDOW_ATTACHER_VERSION}"
