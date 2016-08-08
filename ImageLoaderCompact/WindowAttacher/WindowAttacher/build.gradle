@@ -109,7 +109,7 @@ bintray {
     configurations = ['archives']
     pkg {
         repo = "maven"
-        name = "Overlay"
+        name = "WindowAttacher"
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         licenses = ["Apache-2.0"]

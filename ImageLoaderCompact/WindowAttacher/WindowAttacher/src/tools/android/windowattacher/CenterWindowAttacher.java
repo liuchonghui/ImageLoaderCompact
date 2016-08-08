@@ -1,4 +1,4 @@
-package com.sina.sinagame.windowattacher;
+package tools.android.windowattacher;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

@@ -1,4 +1,4 @@
-package com.sina.sinagame.windowattacher;
+package tools.android.windowattacher;
 
 import android.view.View;
 
