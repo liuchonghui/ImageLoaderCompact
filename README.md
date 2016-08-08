@@ -20,7 +20,7 @@
             }
             String useCompactGlide = "${USE_COMPACT_GLIDE}"
             if ("true".equals(useCompactGlide)) {
-                compile 'tools.android:ImageLoaderCompactWithGlide:1.0.4'
+                compile 'tools.android:ImageLoaderCompactWithGlide:1.0.5'  // 1.0.5 for ARGB_8888 and 1.0.4 for ARGB_565
             }
             String useCompactPicasso = "${USE_COMPACT_PICASSO}"
             if ("true".equals(useCompactPicasso)) {
