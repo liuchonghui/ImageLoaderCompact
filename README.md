@@ -24,7 +24,7 @@
             }
             String useCompactPicasso = "${USE_COMPACT_PICASSO}"
             if ("true".equals(useCompactPicasso)) {
-                compile 'tools.android:ImageLoaderCompactWithPicasso:1.0.0'
+                compile 'tools.android:ImageLoaderCompactWithPicasso:1.0.1'
             }
             String useCompactUil = "${USE_COMPACT_UIL}"
             if ("true".equals(useCompactUil)) {
