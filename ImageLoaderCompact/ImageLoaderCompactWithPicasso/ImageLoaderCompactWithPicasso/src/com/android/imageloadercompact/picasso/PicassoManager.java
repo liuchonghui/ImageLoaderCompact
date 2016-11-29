@@ -176,7 +176,7 @@ public class PicassoManager implements CompactImpl {
             }
         };
         Picasso.with(ImageLoaderCompact.getInstance().getApplicationContext())
-                .load(url).into(target);
+                .load(url).noPlaceholder().into(target);
     }
 
     public void displayImage(final Context ctx, final String url, final CompactImageView imageView) {
@@ -199,6 +199,7 @@ public class PicassoManager implements CompactImpl {
                         }
                         imageView.setImageDrawable(circularBitmapDrawable);
                         imageView.invalidate();
+                        imageView.setTag(android.R.id.custom, null);
                     }
                 };
             }
@@ -206,6 +207,8 @@ public class PicassoManager implements CompactImpl {
             RequestCreator builder = Picasso.with(ctx).load(url);
             if (placeholderId > 0) {
                 builder = builder.placeholder(placeholderId);
+            } else {
+                builder = builder.noPlaceholder();
             }
             ViewGroup.LayoutParams lp = imageView.getLayoutParams();
             if (lp.width > 0 && lp.height > 0) {
@@ -214,6 +217,7 @@ public class PicassoManager implements CompactImpl {
             if (null == target) {
                 builder.into(imageView);
             } else {
+                imageView.setTag(android.R.id.custom, target);
                 builder.into(target);
             }
         }
